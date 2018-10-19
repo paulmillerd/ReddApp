@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RedditApp</string>
+    <string name="comments">comments</string>
 </resources>

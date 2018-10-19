@@ -1,7 +1,7 @@
 package com.paulmillerd.redditapp.api.responseModels
 
-import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
 data class Data(
@@ -72,9 +72,6 @@ data class Data(
 	@field:SerializedName("spoiler")
 	val spoiler: Boolean? = null,
 
-	@field:SerializedName("post_hint")
-	val postHint: String? = null,
-
 	@field:SerializedName("id")
 	val id: String? = null,
 
@@ -82,7 +79,7 @@ data class Data(
 	val locked: Boolean? = null,
 
 	@field:SerializedName("created_utc")
-	val createdUtc: Double? = null,
+	val createdUtc: Int? = null,
 
 	@field:SerializedName("link_flair_template_id")
 	val linkFlairTemplateId: Any? = null,
@@ -99,8 +96,9 @@ data class Data(
 	@field:SerializedName("downs")
 	val downs: Int? = null,
 
-	@field:SerializedName("edited")
-	val edited: Boolean? = null,
+	var editedBool: Boolean? = null,
+
+	var editedTime: Int? = null,
 
 	@field:SerializedName("created")
 	val created: Double? = null,
@@ -171,9 +169,6 @@ data class Data(
 	@field:SerializedName("author_flair_css_class")
 	val authorFlairCssClass: Any? = null,
 
-	@field:SerializedName("preview")
-	val preview: Preview? = null,
-
 	@field:SerializedName("num_reports")
 	val numReports: Any? = null,
 
@@ -232,13 +227,13 @@ data class Data(
 	val authorFullname: String? = null,
 
 	@field:SerializedName("link_flair_css_class")
-	val linkFlairCssClass: String? = null,
+	val linkFlairCssClass: Any? = null,
 
 	@field:SerializedName("selftext")
 	val selftext: String? = null,
 
 	@field:SerializedName("link_flair_text")
-	val linkFlairText: String? = null,
+	val linkFlairText: Any? = null,
 
 	@field:SerializedName("selftext_html")
 	val selftextHtml: Any? = null,
@@ -304,5 +299,11 @@ data class Data(
 	val viewCount: Any? = null,
 
 	@field:SerializedName("is_reddit_media_domain")
-	val isRedditMediaDomain: Boolean? = null
+	val isRedditMediaDomain: Boolean? = null,
+
+	@field:SerializedName("post_hint")
+	val postHint: String? = null,
+
+	@field:SerializedName("preview")
+	val preview: Preview? = null
 )
