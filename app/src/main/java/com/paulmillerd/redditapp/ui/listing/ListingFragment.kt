@@ -38,6 +38,7 @@ class ListingFragment: Fragment() {
                 response?.data?.children?.let { children ->
                     listingAdapter.children.addAll(children)
                     listingAdapter.notifyDataSetChanged()
+                    list_recycler_view.scheduleLayoutAnimation()
                 }
             })
         }

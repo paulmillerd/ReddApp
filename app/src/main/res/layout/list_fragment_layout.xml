@@ -9,6 +9,7 @@
         android:id="@+id/list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/listing_item_layout"/>
+        tools:listitem="@layout/listing_item_layout"
+        android:layoutAnimation="@anim/layout_animation_slide_in"/>
 
 </android.support.constraint.ConstraintLayout>

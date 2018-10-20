@@ -21,15 +21,16 @@
             
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="75dp"
+                android:layout_width="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/title"
-                android:paddingEnd="8dp"
+                android:paddingEnd="16dp"
                 android:paddingStart="0dp"
                 android:paddingLeft="0dp"
-                android:layout_height="75dp"
-                android:paddingRight="8dp"/>
+                android:paddingBottom="16dp"
+                android:layout_height="100dp"
+                android:paddingRight="16dp"/>
 
             <TextView
                 android:id="@+id/domain"

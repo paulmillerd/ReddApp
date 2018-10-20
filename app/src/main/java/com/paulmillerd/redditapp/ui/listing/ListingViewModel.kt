@@ -21,7 +21,7 @@ class ListingViewModel: ViewModel() {
         val liveData = MutableLiveData<ListingResponse>()
         redditService.getBest().enqueue(object : Callback<ListingResponse> {
             override fun onFailure(call: Call<ListingResponse>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<ListingResponse>, response: Response<ListingResponse>) {
