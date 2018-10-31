@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">RedditApp</string>
     <string name="comments">comments</string>
+    <string name="thousands_formatter">%.1fk</string>
+    <string name="one_hour">1 hr</string>
+    <string name="hours_formatter">%d hrs</string>
+    <string name="minute_formatter">%d mins</string>
+    <string name="one_minute">1 min</string>
+    <string name="nsfw">NSFW</string>
 </resources>

@@ -1,7 +1,7 @@
-package com.paulmillerd.redditapp.api.responseModels
+package com.paulmillerd.redditapp.api.responseModels.comments
 
-import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
 data class Preview(
@@ -10,8 +10,5 @@ data class Preview(
 	val images: List<ImagesItem?>? = null,
 
 	@field:SerializedName("enabled")
-	val enabled: Boolean? = null,
-
-	@field:SerializedName("reddit_video_preview")
-	val redditVideoPreview: RedditVideoPreview? = null
+	val enabled: Boolean? = null
 )

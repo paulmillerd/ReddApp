@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
 
 class ListingAdapter: RecyclerView.Adapter<ListingViewHolder>() {
 

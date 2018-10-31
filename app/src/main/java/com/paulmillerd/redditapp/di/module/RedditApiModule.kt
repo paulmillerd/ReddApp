@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.deserializers.ListingDataDeserializer
-import com.paulmillerd.redditapp.api.responseModels.Data
+import com.paulmillerd.redditapp.api.responseModels.Listing.Data
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

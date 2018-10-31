@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.paulmillerd.redditapp.api.responseModels.Data
+import com.paulmillerd.redditapp.api.responseModels.Listing.Data
 import java.lang.reflect.Type
 
 class ListingDataDeserializer: JsonDeserializer<Data> {

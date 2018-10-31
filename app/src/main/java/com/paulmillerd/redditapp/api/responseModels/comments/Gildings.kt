@@ -1,7 +1,7 @@
-package com.paulmillerd.redditapp.api.responseModels
+package com.paulmillerd.redditapp.api.responseModels.comments
 
-import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
 data class Gildings(

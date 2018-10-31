@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.api.responseModels
+package com.paulmillerd.redditapp.api.responseModels.Listing
 
 import javax.annotation.Generated
 
