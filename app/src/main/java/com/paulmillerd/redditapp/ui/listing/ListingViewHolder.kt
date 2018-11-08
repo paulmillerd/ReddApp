@@ -11,7 +11,7 @@ import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
 import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toThousandsString
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.listing_item_layout.view.*
+import kotlinx.android.synthetic.main.listing_item.view.*
 import java.text.NumberFormat
 
 class ListingViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

@@ -3,7 +3,7 @@
     android:id="@+id/list_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:listitem="@layout/listing_item_layout"
+    tools:listitem="@layout/listing_item"
     android:layoutAnimation="@anim/layout_animation_slide_in"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"/>

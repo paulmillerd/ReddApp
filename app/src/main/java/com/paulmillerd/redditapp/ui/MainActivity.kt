@@ -3,19 +3,23 @@ package com.paulmillerd.redditapp.ui
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.ui.listing.ListingFragment
+import com.paulmillerd.redditapp.hideKeyboard
+import com.paulmillerd.redditapp.ui.listing.ListingInterface
+import com.paulmillerd.redditapp.ui.listingPicker.ListingPickerFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ListingPickerFragment.ListingPickerCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_content_view, ListingFragment())
-                    .commit()
-        }
+        (listing_picker_fragment as ListingPickerFragment).callback = this
+    }
+
+    override fun onSubredditEntered(subreddit: String) {
+        hideKeyboard(this)
+        (listing_fragment as ListingInterface).setSubreddit(subreddit)
     }
 
 }
