@@ -36,8 +36,11 @@ class ListingRepository @Inject constructor(private val redditService: RedditSer
                     }
                 }
             }
-
-        }, 10).build()
+        }, PagedList.Config.Builder()
+                .setPageSize(10)
+                .setPrefetchDistance(20)
+                .build()
+        ).build()
     }
 
     private fun fetchPage(subreddit: String?, sortOrder: SortOrder, afterKey: String? = null,
