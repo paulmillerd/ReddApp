@@ -13,10 +13,11 @@ import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
 import com.paulmillerd.redditapp.repository.ListingRepository
+import com.paulmillerd.redditapp.ui.SubredditInterface
 import kotlinx.android.synthetic.main.fragment_listing.*
 import javax.inject.Inject
 
-class ListingFragment: Fragment(), ListingInterface {
+class ListingFragment: Fragment(), SubredditInterface {
 
     companion object {
         const val SUBREDDIT = "SUBREDDIT"

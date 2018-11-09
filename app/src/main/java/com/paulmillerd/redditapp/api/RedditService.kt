@@ -2,6 +2,7 @@ package com.paulmillerd.redditapp.api
 
 import com.paulmillerd.redditapp.api.responseModels.Listing.ListingResponse
 import com.paulmillerd.redditapp.api.responseModels.comments.CommentsResponse
+import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,5 +20,8 @@ interface RedditService {
     @GET("r/{subreddit}/comments/{id}/{title}/.json?sort={sortOrder}")
     fun getComments(@Path("subreddit") subreddit: String, @Path("id") id: String,
                     @Path("title") title: String, @Path("sortOrder") sortOrder: String): Call<CommentsResponse>
+
+    @GET("r/{subreddit}/about.json")
+    fun getSubredditAbout(@Path("subreddit") subreddit: String): Call<AboutResponse>
 
 }
