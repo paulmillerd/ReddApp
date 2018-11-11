@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SubredditAboutRepositiory @Inject constructor(private val redditService: RedditService) {
+class SubredditAboutRepository @Inject constructor(private val redditService: RedditService) {
 
     fun getSubredditAbout(subreddit: String): LiveData<AboutResponse> {
         val data = MutableLiveData<AboutResponse>()

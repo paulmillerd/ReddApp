@@ -8,4 +8,5 @@
     <string name="one_minute">1 min</string>
     <string name="nsfw">NSFW</string>
     <string name="front_page">Front page</string>
+    <string name="subscribers">%s subscribers</string>
 </resources>

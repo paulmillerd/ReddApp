@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.api.responseModels.Listing
+package com.paulmillerd.redditapp.api.responseModels.listing
 
 import com.google.gson.annotations.SerializedName
 import javax.annotation.Generated

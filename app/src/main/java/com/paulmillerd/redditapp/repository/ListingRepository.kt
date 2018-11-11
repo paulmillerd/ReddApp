@@ -8,8 +8,8 @@ import android.arch.paging.PagedList
 import android.text.TextUtils
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.RedditService
-import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
-import com.paulmillerd.redditapp.api.responseModels.Listing.ListingResponse
+import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.ListingResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,11 +36,7 @@ class ListingRepository @Inject constructor(private val redditService: RedditSer
                     }
                 }
             }
-        }, PagedList.Config.Builder()
-                .setPageSize(10)
-                .setPrefetchDistance(20)
-                .build()
-        ).build()
+        }, 10).build()
     }
 
     private fun fetchPage(subreddit: String?, sortOrder: SortOrder, afterKey: String? = null,

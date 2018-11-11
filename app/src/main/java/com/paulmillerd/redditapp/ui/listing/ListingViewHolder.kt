@@ -2,12 +2,14 @@ package com.paulmillerd.redditapp.ui.listing
 
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.webkit.URLUtil
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
 import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toThousandsString
 import com.squareup.picasso.Picasso
@@ -15,6 +17,11 @@ import kotlinx.android.synthetic.main.listing_item.view.*
 import java.text.NumberFormat
 
 class ListingViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
+    companion object {
+        fun create(parent: ViewGroup) =
+                ListingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listing_item, parent, false))
+    }
 
     fun bindChild(childrenItem: ChildrenItem?) {
         with (itemView) {

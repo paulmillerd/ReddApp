@@ -3,22 +3,22 @@ package com.paulmillerd.redditapp.ui.listingPicker
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.paulmillerd.redditapp.repository.SubredditAboutRepositiory
+import com.paulmillerd.redditapp.repository.AutocompleteRepository
 
 class ListingPickerViewModel: ViewModel() {
 
-    private lateinit var subredditAboutRepository: SubredditAboutRepositiory
-    private val subreddit = MutableLiveData<String>()
-    val subredditAbout = Transformations.switchMap(subreddit) {
-        subredditAboutRepository.getSubredditAbout(it)
+    private lateinit var autocompleteRepository: AutocompleteRepository
+    private val query = MutableLiveData<String>()
+    val autocompleteResponse = Transformations.switchMap(query) {
+        autocompleteRepository.getSubredditAutocomplete(it)
     }
 
-    fun init(subredditAboutRepository: SubredditAboutRepositiory) {
-        this.subredditAboutRepository = subredditAboutRepository
+    fun init(autocompleteRepository: AutocompleteRepository) {
+        this.autocompleteRepository = autocompleteRepository
     }
 
-    fun setSubreddit(newSubreddit: String) {
-        subreddit.postValue(newSubreddit)
+    fun setQuery(query: String) {
+        this.query.postValue(query)
     }
 
 }

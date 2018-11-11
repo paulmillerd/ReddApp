@@ -4,24 +4,28 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
-import com.paulmillerd.redditapp.repository.SubredditAboutRepositiory
-import com.paulmillerd.redditapp.ui.SubredditInterface
+import com.paulmillerd.redditapp.hideKeyboard
+import com.paulmillerd.redditapp.repository.AutocompleteRepository
+import com.paulmillerd.redditapp.showKeyboard
 import kotlinx.android.synthetic.main.fragment_listing_picker.*
 import javax.inject.Inject
 
-class ListingPickerFragment: Fragment(), SubredditInterface {
+class ListingPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVhCallback {
 
     @Inject
-    lateinit var subredditAboutRepository: SubredditAboutRepositiory
+    lateinit var autocompleteRepository: AutocompleteRepository
 
     var callback: ListingPickerCallback? = null
     private lateinit var viewModel: ListingPickerViewModel
+    private val autocompleteAdapter = AutocompleteAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_listing_picker, container, false)
@@ -29,13 +33,35 @@ class ListingPickerFragment: Fragment(), SubredditInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subreddit_edit_text.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == IME_ACTION_DONE) {
-                callback?.onSubredditEntered(v.text.toString())
-                v.clearFocus()
-                true
-            } else false
+
+        autocomplete_list.layoutManager = LinearLayoutManager(context)
+        autocomplete_list.adapter = autocompleteAdapter
+
+        back_arrow.setOnClickListener {
+            activity?.let { activity ->
+                hideKeyboard(activity)
+            }
+            activity?.onBackPressed()
         }
+
+        subreddit_edit_text.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus)
+                context?.let { showKeyboard(it) }
+        }
+        subreddit_edit_text.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setQuery(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // do nothing
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // do nothing
+            }
+
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,15 +69,24 @@ class ListingPickerFragment: Fragment(), SubredditInterface {
         context?.let {
             RedditApp.getAppComponent(it).inject(this)
             viewModel = ViewModelProviders.of(this).get(ListingPickerViewModel::class.java)
-            viewModel.init(subredditAboutRepository)
-            viewModel.subredditAbout.observe(this, Observer {
-                subreddit_edit_text.setText(it?.data?.displayNamePrefixed)
+            viewModel.init(autocompleteRepository)
+            viewModel.autocompleteResponse.observe(this, Observer { response ->
+                response?.subreddits?.let {
+                    autocompleteAdapter.items = it
+                    autocompleteAdapter.notifyDataSetChanged()
+                }
             })
         }
     }
 
-    override fun setSubreddit(newSubreddit: String) {
-        viewModel.setSubreddit(newSubreddit)
+    override fun onItemTapped(subredditName: String?) {
+        subredditName?.let {
+            callback?.onSubredditEntered(it)
+        }
+    }
+
+    fun requestFocus() {
+        subreddit_edit_text.requestFocus()
     }
 
     interface ListingPickerCallback {

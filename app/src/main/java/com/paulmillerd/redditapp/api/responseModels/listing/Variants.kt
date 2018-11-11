@@ -1,8 +1,8 @@
-package com.paulmillerd.redditapp.api.responseModels.Listing
+package com.paulmillerd.redditapp.api.responseModels.listing
 
 import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
-data class MediaEmbed(
+data class Variants(
 	val any: Any? = null
 )

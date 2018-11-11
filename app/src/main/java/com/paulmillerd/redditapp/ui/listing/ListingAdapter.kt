@@ -2,15 +2,13 @@ package com.paulmillerd.redditapp.ui.listing
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
 
 class ListingAdapter: PagedListAdapter<ChildrenItem, ListingViewHolder>(ChildrenDiffer()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder =
-            ListingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listing_item, parent, false))
+            ListingViewHolder.create(parent)
 
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         holder.bindChild(getItem(position))

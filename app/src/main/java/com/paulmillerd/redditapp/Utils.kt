@@ -44,6 +44,11 @@ fun hideKeyboard(activity: Activity) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+fun showKeyboard(context: Context) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+}
+
 enum class SortOrder(val pathParam: String) {
     BEST("best"),
     HOT("hot"),

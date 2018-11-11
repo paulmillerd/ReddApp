@@ -11,8 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
-import com.paulmillerd.redditapp.api.responseModels.Listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
 import com.paulmillerd.redditapp.repository.ListingRepository
+import com.paulmillerd.redditapp.repository.SubredditAboutRepository
 import com.paulmillerd.redditapp.ui.SubredditInterface
 import kotlinx.android.synthetic.main.fragment_listing.*
 import javax.inject.Inject
@@ -26,9 +27,12 @@ class ListingFragment: Fragment(), SubredditInterface {
 
     @Inject
     lateinit var listingRepository: ListingRepository
+    @Inject
+    lateinit var mAboutRepository: SubredditAboutRepository
 
     private lateinit var viewModel: ListingViewModel
     private val listingAdapter = ListingAdapter()
+    var callback: ListingFragmentCallback? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_listing, container, false)
@@ -40,6 +44,9 @@ class ListingFragment: Fragment(), SubredditInterface {
             adapter = listingAdapter
             layoutManager = LinearLayoutManager(context)
         }
+        toolbar.setOnClickListener {
+            callback?.onToolbarTapped()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,10 +56,15 @@ class ListingFragment: Fragment(), SubredditInterface {
             RedditApp.getAppComponent(it).inject(this)
 
             viewModel = ViewModelProviders.of(this).get(ListingViewModel::class.java)
-            viewModel.init(listingRepository)
+            viewModel.init(listingRepository, mAboutRepository)
             viewModel.listing.observe(this, Observer { children ->
                 populateRecyclerView(children)
             })
+            viewModel.subredditAbout.observe(this, Observer { aboutResponse ->
+                if (aboutResponse == null) toolbar.title = getString(R.string.front_page)
+                else toolbar.title = aboutResponse.data?.displayNamePrefixed
+            })
+            viewModel.setSubreddit(arguments?.getString(SUBREDDIT) ?: "")
         }
     }
 
@@ -64,6 +76,10 @@ class ListingFragment: Fragment(), SubredditInterface {
         listingAdapter.submitList(children)
         listingAdapter.notifyDataSetChanged()
         list_recycler_view.scheduleLayoutAnimation()
+    }
+
+    interface ListingFragmentCallback {
+        fun onToolbarTapped()
     }
 
 }
