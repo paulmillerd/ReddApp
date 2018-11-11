@@ -6,22 +6,24 @@ import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
+const val BILLION = 1_000_000_000
+const val MILLION = 1_000_000
+const val THOUSAND = 1_000
+
 fun Int.toMagnitudeString(context: Context): String =
         when {
-            this >= 1_000_000_000 -> {
-                val billions = toFloat() / 1_000_000_000f
-                String.format(context.getString(R.string.billions_formatter), billions)
-            }
-            this >= 1_000_000 -> {
-                val millions = toFloat() / 1_000_000f
-                String.format(context.getString(R.string.millions_formatter), millions)
-            }
-            this >= 1000 -> {
-                val thousands = toFloat() / 1000f
+            this < THOUSAND -> toString()
+            this < MILLION -> {
+                val thousands = toFloat() / THOUSAND.toFloat()
                 String.format(context.getString(R.string.thousands_formatter), thousands)
             }
+            this < BILLION -> {
+                val millions = toFloat() / MILLION.toFloat()
+                String.format(context.getString(R.string.millions_formatter), millions)
+            }
             else -> {
-                toString()
+                val billions = toFloat() / BILLION.toFloat()
+                String.format(context.getString(R.string.billions_formatter), billions)
             }
         }
 
