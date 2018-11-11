@@ -2,6 +2,7 @@ package com.paulmillerd.redditapp
 
 import android.app.Activity
 import android.content.Context
+import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
@@ -33,54 +34,20 @@ const val YEAR = WEEK * 52
 fun getAgeString(createdUtc: Int, context: Context): String {
     val age = (System.currentTimeMillis() / 1000) - createdUtc
     return when {
-        age < MINUTE -> {
-            if (age <= 1) {
-                context.getString(R.string.one_second)
-            } else {
-                String.format(context.getString(R.string.second_formatter), age)
-            }
-        }
-        age < HOUR -> {
-            val minutes = age / MINUTE
-            if (minutes == 1L) {
-                context.getString(R.string.one_minute)
-            } else {
-                String.format(context.getString(R.string.minute_formatter), minutes)
-            }
-        }
-        age < DAY -> {
-            val hours = age / HOUR
-            if (hours == 1L) {
-                context.getString(R.string.one_hour)
-            } else {
-                String.format(context.getString(R.string.hours_formatter), hours)
-            }
-        }
-        age < WEEK -> {
-            val days = age / DAY
-            if (days == 1L) {
-                context.getString(R.string.one_day)
-            } else {
-                String.format(context.getString(R.string.days_formatter), days)
-            }
-        }
-        age < YEAR -> {
-            val weeks = age / WEEK
-            if (weeks == 1L) {
-                context.getString(R.string.one_week)
-            } else {
-                String.format(context.getString(R.string.week_formatter), weeks)
-            }
-        }
-        else -> {
-            val years = age / YEAR
-            if (years == 1L) {
-                context.getString(R.string.one_year)
-            } else {
-                String.format(context.getString(R.string.year_formatter), years)
-            }
-        }
+        age < MINUTE -> getQuantityString(age, 1, R.string.one_second, R.string.second_formatter, context)
+        age < HOUR -> getQuantityString(age, MINUTE, R.string.one_minute, R.string.minute_formatter, context)
+        age < DAY -> getQuantityString(age, HOUR, R.string.one_hour, R.string.hours_formatter, context)
+        age < WEEK -> getQuantityString(age, DAY, R.string.one_day, R.string.days_formatter, context)
+        age < YEAR -> getQuantityString(age, WEEK, R.string.one_week, R.string.week_formatter, context)
+        else -> getQuantityString(age, YEAR, R.string.one_year, R.string.year_formatter, context)
     }
+}
+
+fun getQuantityString(age: Long, divisor: Int, @StringRes singularStringRes: Int,
+                @StringRes pluralStringRes: Int, context: Context): String {
+    val quantity = age / divisor
+    return if (quantity <= 1) context.getString(singularStringRes)
+    else String.format(context.getString(pluralStringRes), quantity)
 }
 
 fun hideKeyboard(activity: Activity) {
