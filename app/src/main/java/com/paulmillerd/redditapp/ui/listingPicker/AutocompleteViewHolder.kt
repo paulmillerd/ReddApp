@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.webkit.URLUtil
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.SubredditsItem
-import com.paulmillerd.redditapp.toThousandsString
+import com.paulmillerd.redditapp.toMagnitudeString
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.autocomplete_item.view.*
 
@@ -34,7 +34,7 @@ class AutocompleteViewHolder(itemView: View, val callback: AutocompleteVhCallbac
                     subreddit_icon.visibility = INVISIBLE
                 }
                 subscribers.text = String.format(context.getString(R.string.subscribers),
-                        item.numSubscribers?.toThousandsString(context) ?: "")
+                        item.numSubscribers?.toMagnitudeString(context) ?: "")
                 setOnClickListener { callback.onItemTapped(item.name) }
             }
         }

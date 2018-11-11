@@ -11,7 +11,7 @@ import android.webkit.URLUtil
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
 import com.paulmillerd.redditapp.getAgeString
-import com.paulmillerd.redditapp.toThousandsString
+import com.paulmillerd.redditapp.toMagnitudeString
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.listing_item.view.*
 import java.text.NumberFormat
@@ -52,7 +52,7 @@ class ListingViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                         NumberFormat.getNumberInstance().format(data.numComments),
                         context.getString(R.string.comments)
                 )
-                score.text = data.score?.toThousandsString(context)
+                score.text = data.score?.toMagnitudeString(context)
                 if (!TextUtils.isEmpty(data.linkFlairText)) {
                     flair_badge.visibility = VISIBLE
                     flair_badge.text = data.linkFlairText
