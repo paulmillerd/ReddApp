@@ -1,14 +1,16 @@
 package com.paulmillerd.redditapp.di
 
 import com.paulmillerd.redditapp.di.module.RedditApiModule
-import com.paulmillerd.redditapp.ui.listing.ListingFragment
-import com.paulmillerd.redditapp.ui.listingPicker.ListingPickerFragment
+import com.paulmillerd.redditapp.ui.comments.CommentsFragment
+import com.paulmillerd.redditapp.ui.listingPicker.SubredditPickerFragment
+import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [ RedditApiModule::class ])
 interface AppComponent {
-    fun inject(listingFragment: ListingFragment)
-    fun inject(listingPickerFragment: ListingPickerFragment)
+    fun inject(subredditFragment: SubredditFragment)
+    fun inject(subredditPickerFragment: SubredditPickerFragment)
+    fun inject(commentsFragment: CommentsFragment)
 }

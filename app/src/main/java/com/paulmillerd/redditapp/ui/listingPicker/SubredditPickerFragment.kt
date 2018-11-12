@@ -15,20 +15,20 @@ import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.hideKeyboard
 import com.paulmillerd.redditapp.repository.AutocompleteRepository
 import com.paulmillerd.redditapp.showKeyboard
-import kotlinx.android.synthetic.main.fragment_listing_picker.*
+import kotlinx.android.synthetic.main.fragment_subreddit_picker.*
 import javax.inject.Inject
 
-class ListingPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVhCallback {
+class SubredditPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVhCallback {
 
     @Inject
     lateinit var autocompleteRepository: AutocompleteRepository
 
-    var callback: ListingPickerCallback? = null
+    var callback: SubredditPickerCallback? = null
     private lateinit var viewModel: ListingPickerViewModel
     private val autocompleteAdapter = AutocompleteAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_listing_picker, container, false)
+        return inflater.inflate(R.layout.fragment_subreddit_picker, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ class ListingPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVhCa
         subreddit_edit_text.requestFocus()
     }
 
-    interface ListingPickerCallback {
+    interface SubredditPickerCallback {
         fun onSubredditEntered(subreddit: String)
     }
 

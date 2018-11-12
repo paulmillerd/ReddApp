@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.ui.listing
+package com.paulmillerd.redditapp.ui.subreddit
 
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -9,21 +9,24 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toMagnitudeString
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.listing_item.view.*
+import kotlinx.android.synthetic.main.subreddit_item.view.*
 import java.text.NumberFormat
 
-class ListingViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class SubredditViewHolder(itemView: View, val callback: SubredditFragment.SubredditFragmentCallback?):
+        RecyclerView.ViewHolder(itemView) {
 
     companion object {
-        fun create(parent: ViewGroup) =
-                ListingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listing_item, parent, false))
+        fun create(parent: ViewGroup, callback: SubredditFragment.SubredditFragmentCallback?) =
+                SubredditViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.subreddit_item, parent, false),
+                        callback)
     }
 
-    fun bindChild(childrenItem: ChildrenItem?) {
+    fun bindChild(childrenItem: Thing?) {
         with (itemView) {
             childrenItem?.data?.let { data ->
                 if (data.isSelf == true) {
@@ -63,6 +66,10 @@ class ListingViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                     nsfw_badge.visibility = VISIBLE
                 } else {
                     nsfw_badge.visibility = GONE
+                }
+
+                setOnClickListener {
+                    callback?.onPostTapped(childrenItem)
                 }
             }
         }

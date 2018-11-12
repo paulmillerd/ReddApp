@@ -22,7 +22,7 @@
         android:id="@+id/list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/listing_item"
+        tools:listitem="@layout/subreddit_item"
         android:layoutAnimation="@anim/layout_animation_slide_in"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"/>

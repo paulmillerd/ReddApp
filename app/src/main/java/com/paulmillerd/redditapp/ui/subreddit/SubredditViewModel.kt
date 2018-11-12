@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.ui.listing
+package com.paulmillerd.redditapp.ui.subreddit
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -7,18 +7,18 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
 import android.text.TextUtils
 import com.paulmillerd.redditapp.SortOrder
-import com.paulmillerd.redditapp.api.responseModels.listing.ChildrenItem
+import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
-import com.paulmillerd.redditapp.repository.ListingRepository
 import com.paulmillerd.redditapp.repository.SubredditAboutRepository
+import com.paulmillerd.redditapp.repository.SubredditRepository
 
-class ListingViewModel: ViewModel() {
+class SubredditViewModel: ViewModel() {
 
-    private lateinit var listingRepository: ListingRepository
+    private lateinit var mSubredditRepository: SubredditRepository
     private lateinit var mAboutRepository: SubredditAboutRepository
     private val subreddit = MutableLiveData<String>()
-    val listing: LiveData<PagedList<ChildrenItem>> = Transformations.switchMap(subreddit) {
-        listingRepository.getListing(it, SortOrder.BEST)
+    val listing: LiveData<PagedList<Thing>> = Transformations.switchMap(subreddit) {
+        mSubredditRepository.getListing(it, SortOrder.BEST)
     }
     val subredditAbout: LiveData<AboutResponse?> = Transformations.switchMap(subreddit)  {
         if (!TextUtils.isEmpty(it))
@@ -29,8 +29,8 @@ class ListingViewModel: ViewModel() {
             }
     }
 
-    fun init(listingRepository: ListingRepository, aboutRepository: SubredditAboutRepository) {
-        this.listingRepository = listingRepository
+    fun init(subredditRepository: SubredditRepository, aboutRepository: SubredditAboutRepository) {
+        this.mSubredditRepository = subredditRepository
         this.mAboutRepository = aboutRepository
     }
 

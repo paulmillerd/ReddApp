@@ -3,8 +3,8 @@ package com.paulmillerd.redditapp.di.module
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.paulmillerd.redditapp.api.RedditService
-import com.paulmillerd.redditapp.api.deserializers.ListingDataDeserializer
-import com.paulmillerd.redditapp.api.responseModels.listing.Data
+import com.paulmillerd.redditapp.api.deserializers.ThingDataDeserializer
+import com.paulmillerd.redditapp.api.responseModels.listing.ThingData
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -18,7 +18,7 @@ class RedditApiModule {
 
     @Provides @Singleton fun providesGson(): Gson =
             GsonBuilder()
-                    .registerTypeAdapter(Data::class.java, ListingDataDeserializer())
+                    .registerTypeAdapter(ThingData::class.java, ThingDataDeserializer())
                     .create()
 
     @Provides @Singleton fun providesOkHttpClient(): OkHttpClient =

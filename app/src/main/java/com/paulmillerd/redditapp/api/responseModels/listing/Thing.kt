@@ -1,14 +1,15 @@
 package com.paulmillerd.redditapp.api.responseModels.listing
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
-data class ListingResponse(
+data class Thing(
 
         @field:SerializedName("data")
-	val data: Data? = null,
+	val data: ThingData? = null,
 
         @field:SerializedName("kind")
 	val kind: String? = null
-)
+): Serializable
