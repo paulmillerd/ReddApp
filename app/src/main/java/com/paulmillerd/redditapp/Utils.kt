@@ -6,6 +6,15 @@ import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
+enum class ThingType(val prefix: String) {
+    COMMENT("t1"),
+    ACCOUNT("t2"),
+    LINK("t3"),
+    MESSAGE("t4"),
+    SUBREDDIT("t5"),
+    AWARD("t6")
+}
+
 const val BILLION = 1_000_000_000
 const val MILLION = 1_000_000
 const val THOUSAND = 1_000

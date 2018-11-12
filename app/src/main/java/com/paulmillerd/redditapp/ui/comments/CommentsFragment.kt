@@ -40,9 +40,9 @@ class CommentsFragment : Fragment() {
             viewModel.post.observe(this, Observer { post ->
                 post_title.text = post?.data?.title
             })
-            viewModel.getComments.observe(this, Observer {
-                it?.get(1)?.data?.children?.let { comments ->
-                    adapter.commentList = comments
+            viewModel.comments.observe(this, Observer { comments ->
+                comments?.let {
+                    adapter.commentList = it
                     adapter.notifyDataSetChanged()
                 }
             })
