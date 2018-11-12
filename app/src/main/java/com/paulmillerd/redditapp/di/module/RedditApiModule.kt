@@ -2,6 +2,7 @@ package com.paulmillerd.redditapp.di.module
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.paulmillerd.redditapp.api.GsonInstances
 import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.deserializers.ThingDataDeserializer
 import com.paulmillerd.redditapp.api.responseModels.listing.ThingData
@@ -16,9 +17,12 @@ import javax.inject.Singleton
 @Module
 class RedditApiModule {
 
-    @Provides @Singleton fun providesGson(): Gson =
+    @Provides @Singleton fun providesGsonInstances(): GsonInstances =
+            GsonInstances()
+
+    @Provides @Singleton fun providesGson(gsonInstances: GsonInstances): Gson =
             GsonBuilder()
-                    .registerTypeAdapter(ThingData::class.java, ThingDataDeserializer())
+                    .registerTypeAdapter(ThingData::class.java, ThingDataDeserializer(gsonInstances))
                     .create()
 
     @Provides @Singleton fun providesOkHttpClient(): OkHttpClient =

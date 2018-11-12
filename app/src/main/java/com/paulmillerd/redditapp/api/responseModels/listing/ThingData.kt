@@ -304,5 +304,11 @@ data class ThingData(
 	var editedTime: Int? = null,
 
 	@field:SerializedName("body")
-	val body: String? = null
+	val body: String? = null,
+
+	@field:SerializedName("depth")
+	val depth: Int? = null,
+
+	@field:SerializedName("score_hidden")
+	val score_hidden: Boolean? = null
 ): Serializable
