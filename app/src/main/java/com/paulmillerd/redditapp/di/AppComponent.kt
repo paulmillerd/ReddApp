@@ -2,8 +2,8 @@ package com.paulmillerd.redditapp.di
 
 import com.paulmillerd.redditapp.di.module.RedditApiModule
 import com.paulmillerd.redditapp.ui.comments.CommentsFragment
-import com.paulmillerd.redditapp.ui.listingPicker.SubredditPickerFragment
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
+import com.paulmillerd.redditapp.ui.subredditPicker.SubredditPickerFragment
 import dagger.Component
 import javax.inject.Singleton
 

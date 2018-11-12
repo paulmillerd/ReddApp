@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.ui.listingPicker
+package com.paulmillerd.redditapp.ui.subredditPicker
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

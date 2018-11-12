@@ -1,4 +1,4 @@
-package com.paulmillerd.redditapp.ui.listingPicker
+package com.paulmillerd.redditapp.ui.subredditPicker
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -24,7 +24,7 @@ class SubredditPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVh
     lateinit var autocompleteRepository: AutocompleteRepository
 
     var callback: SubredditPickerCallback? = null
-    private lateinit var viewModel: ListingPickerViewModel
+    private lateinit var viewModel: SubredditPickerViewModel
     private val autocompleteAdapter = AutocompleteAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -68,7 +68,7 @@ class SubredditPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVh
         super.onActivityCreated(savedInstanceState)
         context?.let {
             RedditApp.getAppComponent(it).inject(this)
-            viewModel = ViewModelProviders.of(this).get(ListingPickerViewModel::class.java)
+            viewModel = ViewModelProviders.of(this).get(SubredditPickerViewModel::class.java)
             viewModel.init(autocompleteRepository)
             viewModel.autocompleteResponse.observe(this, Observer { response ->
                 response?.subreddits?.let {

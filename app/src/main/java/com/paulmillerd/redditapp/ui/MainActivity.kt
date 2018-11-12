@@ -7,10 +7,10 @@ import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.hideKeyboard
 import com.paulmillerd.redditapp.ui.comments.CommentsFragment
-import com.paulmillerd.redditapp.ui.listingPicker.SubredditPickerFragment
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment.Companion.SORT_ORDER
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment.Companion.SUBREDDIT
+import com.paulmillerd.redditapp.ui.subredditPicker.SubredditPickerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),

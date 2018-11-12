@@ -1,11 +1,11 @@
-package com.paulmillerd.redditapp.ui.listingPicker
+package com.paulmillerd.redditapp.ui.subredditPicker
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.paulmillerd.redditapp.repository.AutocompleteRepository
 
-class ListingPickerViewModel: ViewModel() {
+class SubredditPickerViewModel: ViewModel() {
 
     private lateinit var autocompleteRepository: AutocompleteRepository
     private val query = MutableLiveData<String>()
