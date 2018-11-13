@@ -10,26 +10,26 @@ import retrofit2.http.Query
 
 interface RedditService {
 
-    @GET("{sortOrder}.json")
+    @GET("{sortOrder}.json?raw_json=1")
     fun getFrontPage(@Path("sortOrder") sortOrder: String,
                      @Query("after") after: String?):
             Call<Listing>
 
-    @GET("r/{subreddit}/{sortOrder}.json")
+    @GET("r/{subreddit}/{sortOrder}.json?raw_json=1")
     fun getSubreddit(@Path("subreddit") subreddit: String,
                      @Path("sortOrder") sortOrder: String,
                      @Query("after") after: String?):
             Call<Listing>
 
-    @GET("comments/{id}/.json")
+    @GET("comments/{id}/.json?raw_json=1")
     fun getComments(@Path("id") id: String,
                     @Query("sort") sortOrder: String):
             Call<List<Listing>>
 
-    @GET("r/{subreddit}/about.json")
+    @GET("r/{subreddit}/about.json?raw_json=1")
     fun getSubredditAbout(@Path("subreddit") subreddit: String): Call<AboutResponse>
 
-    @GET("api/subreddit_autocomplete.json")
+    @GET("api/subreddit_autocomplete.json?raw_json=1")
     fun getSubredditAutocomplete(@Query("query") query: String,
                                  @Query("include_over_18") includeOver18: Boolean,
                                  @Query("include_profiles") includeProfiles: Boolean):

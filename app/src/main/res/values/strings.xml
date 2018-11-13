@@ -20,4 +20,6 @@
     <string name="front_page">Front page</string>
     <string name="subscribers">%s subscribers</string>
     <string name="score_hidden">(Score hidden)</string>
+    <string name="more_replies">%d more replies</string>
+    <string name="more_replies_singular">1 more reply</string>
 </resources>

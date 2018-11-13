@@ -12,7 +12,8 @@ enum class ThingType(val prefix: String) {
     LINK("t3"),
     MESSAGE("t4"),
     SUBREDDIT("t5"),
-    AWARD("t6")
+    AWARD("t6"),
+    MORE("more")
 }
 
 const val BILLION = 1_000_000_000

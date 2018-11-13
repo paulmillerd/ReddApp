@@ -310,5 +310,14 @@ data class ThingData(
 	val depth: Int? = null,
 
 	@field:SerializedName("score_hidden")
-	val score_hidden: Boolean? = null
+	val score_hidden: Boolean? = null,
+
+	@field:SerializedName("count")
+	val count: Int? = null,
+
+	@field:SerializedName("parent_id")
+	val parent_id: String? = null,
+
+	@field:SerializedName("children")
+	val children: List<String?>? = null
 ): Serializable

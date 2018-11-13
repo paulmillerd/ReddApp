@@ -37,7 +37,7 @@ class CommentsViewModel: ViewModel() {
 
     private fun addCommentsToList(things: List<Thing>, wipCommentList: MutableList<Thing>) {
         things.forEach { thing ->
-            if (thing.kind == ThingType.COMMENT.prefix) {
+            if (thing.kind == ThingType.COMMENT.prefix || thing.kind == ThingType.MORE.prefix) {
                 wipCommentList.add(thing)
                 thing.data?.repliesListing?.data?.children?.let {
                     addCommentsToList(it, wipCommentList)
