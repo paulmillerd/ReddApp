@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.paulmillerd.redditapp.R
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_comments.*
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
 
-class CommentsFragment : androidx.fragment.app.Fragment() {
+class CommentsFragment : Fragment(), MoreCommentsViewHolder.MoreCommentsVhCallback {
 
     companion object {
         const val POST_DATA = "POST_DATA"
@@ -27,7 +28,7 @@ class CommentsFragment : androidx.fragment.app.Fragment() {
     lateinit var commentRepository: CommentRepository
 
     private lateinit var viewModel: CommentsViewModel
-    private val adapter = CommentsAdapter()
+    private val adapter = CommentsAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_comments, container, false)
@@ -63,6 +64,10 @@ class CommentsFragment : androidx.fragment.app.Fragment() {
         comments_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         comments_list.adapter = adapter
         comments_list.isNestedScrollingEnabled = false
+    }
+
+    override fun onMoreCommentsTapped(moreCommentsItem: Thing) {
+        viewModel.getMoreCommentsFor(moreCommentsItem)
     }
 
 }

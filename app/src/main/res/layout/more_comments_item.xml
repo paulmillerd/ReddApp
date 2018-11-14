@@ -17,6 +17,8 @@
     <TextView
         android:id="@+id/more_text"
         android:layout_width="0dp"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHorizontal_bias="0"
         tools:text = "10 more replies"
         android:fontFamily="sans-serif"
         android:textStyle="italic"
@@ -26,5 +28,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="@id/more_text"
+        app:layout_constraintBottom_toBottomOf="@id/more_text"
+        app:layout_constraintStart_toEndOf="@id/more_text"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

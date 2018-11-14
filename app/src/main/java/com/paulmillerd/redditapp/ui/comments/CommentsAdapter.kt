@@ -1,10 +1,12 @@
 package com.paulmillerd.redditapp.ui.comments
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.paulmillerd.redditapp.ThingType
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 
-class CommentsAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<CommentListViewHolder>() {
+class CommentsAdapter(val callback: MoreCommentsViewHolder.MoreCommentsVhCallback):
+        RecyclerView.Adapter<CommentListViewHolder>() {
 
     companion object {
         const val COMMENT = 0
@@ -19,7 +21,7 @@ class CommentsAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<Comment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentListViewHolder =
             if (viewType == COMMENT) CommentViewHolder.create(parent)
-            else MoreCommentsViewHolder.create(parent)
+            else MoreCommentsViewHolder.create(parent, callback)
 
     override fun getItemCount(): Int = commentList.size
 

@@ -1,9 +1,6 @@
 package com.paulmillerd.redditapp.ui.comments
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.ThingType
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
@@ -13,22 +10,41 @@ class CommentsViewModel: ViewModel() {
 
     private lateinit var commentRepository: CommentRepository
     private val _post = MutableLiveData<Thing>()
+    private val _moreCommentsData = MutableLiveData<MoreCommentsData>()
     val post: LiveData<Thing> get() = _post
     private val commentsResponse = Transformations.switchMap(post) {
         commentRepository.getComments(it.data?.id ?: "", SortOrder.BEST)
     }
-    val comments: LiveData<List<Thing>> = Transformations.map(commentsResponse) { response ->
-        val comments = mutableListOf<Thing>()
-        response.forEach { listing ->
-            listing.data?.children?.let {
-                addCommentsToList(it, comments)
-            }
-        }
-        comments
+    private val moreCommentsResponse = Transformations.switchMap(_moreCommentsData) {
+        commentRepository.getMoreComments(it.linkTypePrefix, it.linkId, it.children)
     }
+    val comments = MediatorLiveData<List<Thing>>()
 
     fun init(commentRepository: CommentRepository) {
         this.commentRepository = commentRepository
+
+        comments.addSource(commentsResponse) { response ->
+            val commentsList = mutableListOf<Thing>()
+            response.forEach { listing ->
+                listing.data?.children?.let {
+                    addCommentsToList(it, commentsList)
+                }
+            }
+            comments.postValue(commentsList)
+        }
+
+        comments.addSource(moreCommentsResponse) { response ->
+            val parentId = response[0].data?.parent_id
+            val commentsList = comments.value?.toMutableList()
+            val indexToReplace = commentsList?.indexOfFirst {
+                it.data?.parent_id == parentId && it.kind == ThingType.MORE.prefix
+            }
+            indexToReplace?.let {
+                commentsList.removeAt(it)
+                commentsList.addAll(it, response)
+            }
+            comments.postValue(commentsList)
+        }
     }
 
     fun setPostData(post: Thing) {
@@ -45,5 +61,21 @@ class CommentsViewModel: ViewModel() {
             }
         }
     }
+
+    fun getMoreCommentsFor(moreCommentsItem: Thing) {
+        val linkTypePrefix = post.value?.kind
+        val linkId = post.value?.data?.id
+        val children = moreCommentsItem.data?.children
+
+        if (linkTypePrefix != null && linkId != null && children != null) {
+            _moreCommentsData.postValue(MoreCommentsData(linkTypePrefix, linkId, children))
+        }
+    }
+
+    data class MoreCommentsData(
+            val linkTypePrefix: String,
+            val linkId: String,
+            val children: List<String?>
+    )
 
 }

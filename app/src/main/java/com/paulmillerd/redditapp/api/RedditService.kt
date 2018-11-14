@@ -1,6 +1,7 @@
 package com.paulmillerd.redditapp.api
 
 import com.paulmillerd.redditapp.api.responseModels.listing.Listing
+import com.paulmillerd.redditapp.api.responseModels.listing.MoreCommentsResponse
 import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
 import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.AutocompleteResponse
 import retrofit2.Call
@@ -34,5 +35,10 @@ interface RedditService {
                                  @Query("include_over_18") includeOver18: Boolean,
                                  @Query("include_profiles") includeProfiles: Boolean):
             Call<AutocompleteResponse>
+
+    @GET("api/morechildren.json?api_type=json&raw_json=1")
+    fun getMoreComments(@Query("link_id") linkId: String,
+                        @Query("children") children: String):
+            Call<MoreCommentsResponse>
 
 }
