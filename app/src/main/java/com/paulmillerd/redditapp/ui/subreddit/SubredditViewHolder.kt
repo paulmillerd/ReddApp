@@ -38,11 +38,9 @@ class SubredditViewHolder(itemView: View, val callback: SubredditFragment.Subred
                     domain.text = data.domain
                 }
                 title.text = data.title ?: ""
-                subreddit.text = data.subredditNamePrefixed
-                info.text = String.format(
-                        "%s • %s",
-                        data.author,
-                        data.createdUtc?.let { getAgeString(it, context) } ?: "")
+                subreddit.text = data.subredditNamePrefixed ?: ""
+                username.text = data.author ?: ""
+                age.text = data.createdUtc?.let { getAgeString(it, context) } ?: ""
                 val thumbnailUrl = data.thumbnail
                 if (URLUtil.isValidUrl(thumbnailUrl)) {
                     thumbnail.visibility = VISIBLE

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toMagnitudeString
 import kotlinx.android.synthetic.main.comment_item.view.*
 import ru.noties.markwon.Markwon
@@ -23,10 +24,15 @@ class CommentViewHolder(itemView: View) : CommentListViewHolder(itemView) {
             repeat(item?.data?.depth ?: 0) { depth_lines.addView(DepthLine(context)) }
             username.text = item?.data?.author ?: ""
             score.text =
-                    if (item?.data?.score_hidden == true)
-                        context.getString(R.string.score_hidden)
-                    else
-                        item?.data?.score?.toMagnitudeString(context) ?: ""
+                    when {
+                        item?.data?.score_hidden == true -> context.getString(R.string.score_hidden)
+                        item?.data?.score == 1 -> context.getString(R.string.point_singular)
+                        item?.data?.score != null ->
+                            String.format(context.getString(R.string.points),
+                                    item.data.score.toMagnitudeString(context))
+                        else -> ""
+                    }
+            age.text = item?.data?.createdUtc?.let { getAgeString(it, context) } ?: ""
             Markwon.setMarkdown(comment_body, item?.data?.body ?: "")
         }
     }

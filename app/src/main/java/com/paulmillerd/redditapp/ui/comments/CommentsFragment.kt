@@ -5,14 +5,18 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.CommentRepository
 import kotlinx.android.synthetic.main.fragment_comments.*
+import ru.noties.markwon.Markwon
 import javax.inject.Inject
 
 class CommentsFragment : Fragment() {
@@ -39,8 +43,15 @@ class CommentsFragment : Fragment() {
             viewModel.setPostData(arguments?.getSerializable(POST_DATA) as Thing)
             viewModel.post.observe(this, Observer { post ->
                 post_title.text = post?.data?.title
+                if (!TextUtils.isEmpty(post?.data?.selftext)) {
+                    self_text.visibility = VISIBLE
+                    Markwon.setMarkdown(self_text, post?.data?.selftext ?: "")
+                } else {
+                    self_text.visibility = GONE
+                }
             })
             viewModel.comments.observe(this, Observer { comments ->
+                progress_bar.visibility = GONE
                 comments?.let {
                     adapter.commentList = it
                     adapter.notifyDataSetChanged()
@@ -53,6 +64,7 @@ class CommentsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         comments_list.layoutManager = LinearLayoutManager(context)
         comments_list.adapter = adapter
+        comments_list.isNestedScrollingEnabled = false
     }
 
 }
