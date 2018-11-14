@@ -1,6 +1,7 @@
 package com.paulmillerd.redditapp.api.responseModels.listing
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
@@ -17,4 +18,4 @@ data class ImagesItem(
 
         @field:SerializedName("id")
 	val id: String? = null
-)
+): Serializable
