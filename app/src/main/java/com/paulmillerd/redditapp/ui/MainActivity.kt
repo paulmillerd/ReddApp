@@ -1,7 +1,7 @@
 package com.paulmillerd.redditapp.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing

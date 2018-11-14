@@ -2,9 +2,9 @@ package com.paulmillerd.redditapp
 
 import android.app.Activity
 import android.content.Context
-import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 
 enum class ThingType(val prefix: String) {
     COMMENT("t1"),

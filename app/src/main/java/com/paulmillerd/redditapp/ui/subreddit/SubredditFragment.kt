@@ -1,14 +1,12 @@
 package com.paulmillerd.redditapp.ui.subreddit
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.arch.paging.PagedList
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
@@ -18,7 +16,7 @@ import com.paulmillerd.redditapp.ui.SubredditInterface
 import kotlinx.android.synthetic.main.fragment_subreddit.*
 import javax.inject.Inject
 
-class SubredditFragment: Fragment(), SubredditInterface {
+class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
 
     companion object {
         const val SUBREDDIT = "SUBREDDIT"
@@ -43,7 +41,7 @@ class SubredditFragment: Fragment(), SubredditInterface {
         list_recycler_view.apply {
             listingAdapter.callback = callback
             adapter = listingAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         }
         toolbar.setOnClickListener {
             callback?.onToolbarTapped()

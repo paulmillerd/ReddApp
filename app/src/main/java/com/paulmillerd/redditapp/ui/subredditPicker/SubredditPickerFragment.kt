@@ -1,15 +1,13 @@
 package com.paulmillerd.redditapp.ui.subredditPicker
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.hideKeyboard
@@ -18,7 +16,7 @@ import com.paulmillerd.redditapp.showKeyboard
 import kotlinx.android.synthetic.main.fragment_subreddit_picker.*
 import javax.inject.Inject
 
-class SubredditPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVhCallback {
+class SubredditPickerFragment: androidx.fragment.app.Fragment(), AutocompleteViewHolder.AutocompleteVhCallback {
 
     @Inject
     lateinit var autocompleteRepository: AutocompleteRepository
@@ -34,7 +32,7 @@ class SubredditPickerFragment: Fragment(), AutocompleteViewHolder.AutocompleteVh
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        autocomplete_list.layoutManager = LinearLayoutManager(context)
+        autocomplete_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         autocomplete_list.adapter = autocompleteAdapter
 
         back_arrow.setOnClickListener {

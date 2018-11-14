@@ -1,16 +1,14 @@
 package com.paulmillerd.redditapp.ui.comments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_comments.*
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
 
-class CommentsFragment : Fragment() {
+class CommentsFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         const val POST_DATA = "POST_DATA"
@@ -62,7 +60,7 @@ class CommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        comments_list.layoutManager = LinearLayoutManager(context)
+        comments_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         comments_list.adapter = adapter
         comments_list.isNestedScrollingEnabled = false
     }

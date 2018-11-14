@@ -1,6 +1,5 @@
 package com.paulmillerd.redditapp.ui.subreddit
 
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.subreddit_item.view.*
 import java.text.NumberFormat
 
 class SubredditViewHolder(itemView: View, val callback: SubredditFragment.SubredditFragmentCallback?):
-        RecyclerView.ViewHolder(itemView) {
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     companion object {
         fun create(parent: ViewGroup, callback: SubredditFragment.SubredditFragmentCallback?) =

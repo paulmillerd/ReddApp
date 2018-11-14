@@ -1,11 +1,10 @@
 package com.paulmillerd.redditapp.ui.subredditPicker
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.SubredditsItem
 
 class AutocompleteAdapter(val callback: AutocompleteViewHolder.AutocompleteVhCallback):
-        RecyclerView.Adapter<AutocompleteViewHolder>() {
+        androidx.recyclerview.widget.RecyclerView.Adapter<AutocompleteViewHolder>() {
 
     var items = listOf<SubredditsItem?>()
 

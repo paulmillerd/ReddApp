@@ -1,11 +1,10 @@
 package com.paulmillerd.redditapp.ui.comments
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.ThingType
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 
-class CommentsAdapter: RecyclerView.Adapter<CommentListViewHolder>() {
+class CommentsAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<CommentListViewHolder>() {
 
     companion object {
         const val COMMENT = 0

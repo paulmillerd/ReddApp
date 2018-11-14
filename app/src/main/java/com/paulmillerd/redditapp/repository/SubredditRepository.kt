@@ -1,11 +1,11 @@
 package com.paulmillerd.redditapp.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.DataSource
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PageKeyedDataSource
-import android.arch.paging.PagedList
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.responseModels.listing.Listing

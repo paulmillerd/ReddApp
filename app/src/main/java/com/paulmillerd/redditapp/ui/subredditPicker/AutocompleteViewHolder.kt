@@ -1,6 +1,5 @@
 package com.paulmillerd.redditapp.ui.subredditPicker
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -13,7 +12,7 @@ import com.paulmillerd.redditapp.toMagnitudeString
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.autocomplete_item.view.*
 
-class AutocompleteViewHolder(itemView: View, val callback: AutocompleteVhCallback) : RecyclerView.ViewHolder(itemView) {
+class AutocompleteViewHolder(itemView: View, val callback: AutocompleteVhCallback) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     companion object {
         fun create(parent: ViewGroup, callback: AutocompleteVhCallback) =

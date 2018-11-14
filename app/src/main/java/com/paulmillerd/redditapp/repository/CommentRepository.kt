@@ -1,7 +1,7 @@
 package com.paulmillerd.redditapp.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.responseModels.listing.Listing
