@@ -20,6 +20,13 @@ const val BILLION = 1_000_000_000
 const val MILLION = 1_000_000
 const val THOUSAND = 1_000
 
+val COMMENT_COLORS = listOf(
+        R.color.rootComment,
+        R.color.depth1Comment,
+        R.color.depth2Comment,
+        R.color.depth3Comment
+)
+
 fun Int.toMagnitudeString(context: Context): String =
         when {
             this < THOUSAND -> toString()

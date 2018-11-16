@@ -1,14 +1,18 @@
 package com.paulmillerd.redditapp.ui.comments
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.paulmillerd.redditapp.COMMENT_COLORS
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toMagnitudeString
 import kotlinx.android.synthetic.main.comment_item.view.*
 import ru.noties.markwon.Markwon
+import kotlin.math.min
 
 class CommentViewHolder(itemView: View) : CommentListViewHolder(itemView) {
 
@@ -22,6 +26,13 @@ class CommentViewHolder(itemView: View) : CommentListViewHolder(itemView) {
         with(itemView) {
             depth_lines.removeAllViews()
             repeat(item?.data?.depth ?: 0) { depth_lines.addView(DepthLine(context)) }
+            comment_background.background.setColorFilter(
+                    ContextCompat.getColor(
+                            context,
+                            COMMENT_COLORS[min(item?.data?.depth ?: 0, COMMENT_COLORS.size - 1)]
+                    ),
+                    PorterDuff.Mode.SRC_ATOP
+            )
             username.text = item?.data?.author ?: ""
             score.text =
                     when {
