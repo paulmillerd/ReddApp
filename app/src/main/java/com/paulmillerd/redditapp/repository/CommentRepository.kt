@@ -33,8 +33,8 @@ class CommentRepository @Inject constructor(private val redditService: RedditSer
         return data
     }
 
-    fun getMoreComments(linkTypePrefix: String, linkId: String, children: List<String?>): LiveData<List<Thing>> {
-        val data = MutableLiveData<List<Thing>>()
+    fun getMoreComments(linkTypePrefix: String, linkId: String, children: List<String?>, parentId: String): LiveData<MoreCommentsWithParentId> {
+        val data = MutableLiveData<MoreCommentsWithParentId>()
 
         var childrenString = ""
         repeat(children.size) { iteration ->
@@ -46,9 +46,10 @@ class CommentRepository @Inject constructor(private val redditService: RedditSer
                 .enqueue(object : Callback<MoreCommentsResponse> {
                     override fun onResponse(call: Call<MoreCommentsResponse>, response: Response<MoreCommentsResponse>) {
                         if (response.isSuccessful) {
-                            response.body()?.json?.data?.things?.let {
-                                data.postValue(it)
-                            }
+                            data.postValue(MoreCommentsWithParentId(
+                                    moreComments = response.body()?.json?.data?.things ?: listOf(),
+                                    parentId = parentId
+                            ))
                         }
                     }
 
@@ -59,5 +60,10 @@ class CommentRepository @Inject constructor(private val redditService: RedditSer
 
         return data
     }
+
+    data class MoreCommentsWithParentId(
+            val moreComments: List<Thing>,
+            val parentId: String
+    )
 
 }

@@ -7,13 +7,17 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.CommentRepository
+import com.paulmillerd.redditapp.toMagnitudeString
 import kotlinx.android.synthetic.main.fragment_comments.*
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
@@ -42,18 +46,42 @@ class CommentsFragment : Fragment(), MoreCommentsViewHolder.MoreCommentsVhCallba
             viewModel.setPostData(arguments?.getSerializable(POST_DATA) as Thing)
             viewModel.post.observe(this, Observer { post ->
                 post_title.text = post?.data?.title
-                if (!TextUtils.isEmpty(post?.data?.selftext)) {
-                    self_text.visibility = VISIBLE
-                    Markwon.setMarkdown(self_text, post?.data?.selftext ?: "")
+                score.text = post?.data?.score?.toMagnitudeString(ctx)
+                if (URLUtil.isValidUrl(post?.data?.thumbnail)) {
+                    thumbnail.visibility = VISIBLE
+                    context?.let { ctx ->
+                        Glide.with(ctx)
+                                .load(post?.data?.thumbnail)
+                                .into(thumbnail)
+                    }
                 } else {
-                    self_text.visibility = GONE
+                    thumbnail.visibility = GONE
+                }
+                if (!TextUtils.isEmpty(post?.data?.selftext)) {
+                    adapter.submitList(listOf(CommentsAdapter.CommentOrSelfText(
+                            selfText = Markwon.markdown(ctx, post?.data?.selftext ?: "").toString()
+                    )))
                 }
             })
             viewModel.comments.observe(this, Observer { comments ->
                 progress_bar.visibility = GONE
-                comments?.let {
-                    adapter.commentList = it
-                    adapter.notifyDataSetChanged()
+                comments?.let { commentList ->
+                    val newList = mutableListOf<CommentsAdapter.CommentOrSelfText>()
+
+                    val selfText = viewModel.post.value?.data?.selftext
+                    if (!TextUtils.isEmpty(selfText)) {
+                        newList.add(CommentsAdapter.CommentOrSelfText(
+                                selfText = Markwon.markdown(ctx, selfText ?: "").toString()
+                        ))
+                    }
+
+                    commentList.forEach { comment ->
+                        newList.add(CommentsAdapter.CommentOrSelfText(
+                                comment = comment
+                        ))
+                    }
+
+                    adapter.submitList(newList)
                 }
             })
         }
@@ -61,9 +89,8 @@ class CommentsFragment : Fragment(), MoreCommentsViewHolder.MoreCommentsVhCallba
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        comments_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        comments_list.layoutManager = LinearLayoutManager(context)
         comments_list.adapter = adapter
-        comments_list.isNestedScrollingEnabled = false
     }
 
     override fun onMoreCommentsTapped(moreCommentsItem: Thing) {

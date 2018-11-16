@@ -73,8 +73,6 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
 
     private fun populateRecyclerView(children: PagedList<Thing>?) {
         listingAdapter.submitList(children)
-        listingAdapter.notifyDataSetChanged()
-        list_recycler_view.scheduleLayoutAnimation()
     }
 
     interface SubredditFragmentCallback {

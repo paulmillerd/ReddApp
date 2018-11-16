@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onPostTapped(post: Thing) {
         supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_slide_up, android.R.animator.fade_out,
+                        android.R.animator.fade_out, R.anim.exit_slide_down)
                 .add(R.id.content_frame, CommentsFragment().also { fragment ->
                     fragment.arguments = Bundle().also { bundle ->
                         bundle.putSerializable(CommentsFragment.POST_DATA, post)

@@ -16,7 +16,7 @@ class CommentsViewModel: ViewModel() {
         commentRepository.getComments(it.data?.id ?: "", SortOrder.BEST)
     }
     private val moreCommentsResponse = Transformations.switchMap(_moreCommentsData) {
-        commentRepository.getMoreComments(it.linkTypePrefix, it.linkId, it.children)
+        commentRepository.getMoreComments(it.linkTypePrefix, it.linkId, it.children, it.parentId)
     }
     private val _comments = MediatorLiveData<List<Thing>>()
     val comments: LiveData<List<Thing>> get() = _comments
@@ -33,14 +33,14 @@ class CommentsViewModel: ViewModel() {
         }
 
         _comments.addSource(moreCommentsResponse) { response ->
-            val parentId = response[0].data?.parent_id
+            val parentId = response.parentId
             val commentsList = _comments.value?.toMutableList()
             val indexToReplace = commentsList?.indexOfFirst {
                 it.data?.parent_id == parentId && it.kind == ThingType.MORE.prefix
             }
             indexToReplace?.let {
                 commentsList.removeAt(it)
-                commentsList.addAll(it, response)
+                commentsList.addAll(it, response.moreComments)
             }
             _comments.postValue(commentsList)
         }
@@ -69,16 +69,18 @@ class CommentsViewModel: ViewModel() {
         val linkTypePrefix = post.value?.kind
         val linkId = post.value?.data?.id
         val children = moreCommentsItem.data?.children
+        val parentId = moreCommentsItem.data?.parent_id
 
-        if (linkTypePrefix != null && linkId != null && children != null) {
-            _moreCommentsData.postValue(MoreCommentsData(linkTypePrefix, linkId, children))
+        if (linkTypePrefix != null && linkId != null && children != null && parentId != null) {
+            _moreCommentsData.postValue(MoreCommentsData(linkTypePrefix, linkId, children, parentId))
         }
     }
 
     data class MoreCommentsData(
             val linkTypePrefix: String,
             val linkId: String,
-            val children: List<String?>
+            val children: List<String?>,
+            val parentId: String
     )
 
 }

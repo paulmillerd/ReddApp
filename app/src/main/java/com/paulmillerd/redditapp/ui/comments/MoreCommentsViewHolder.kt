@@ -2,6 +2,7 @@ package com.paulmillerd.redditapp.ui.comments
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.paulmillerd.redditapp.R
@@ -17,21 +18,22 @@ class MoreCommentsViewHolder(itemView: View, val callback: MoreCommentsVhCallbac
                         callback)
     }
 
-    override fun bindView(item: Thing?) {
+    override fun bindView(item: CommentsAdapter.CommentOrSelfText) {
         with (itemView) {
+            progress_bar.visibility = GONE
             depth_lines.removeAllViews()
-            repeat(item?.data?.depth ?: 0) { depth_lines.addView(DepthLine(context)) }
+            repeat(item.comment?.data?.depth ?: 0) { depth_lines.addView(DepthLine(context)) }
             more_text.text =
                     when {
-                        item?.data?.count == null -> ""
-                        item.data.count > 1 -> String.format(
-                                context.getString(R.string.more_replies, item.data.count)
+                        item.comment?.data?.count == null -> ""
+                        item.comment.data.count > 1 -> String.format(
+                                context.getString(R.string.more_replies, item.comment.data.count)
                         )
                         else -> context.getString(R.string.more_replies_singular)
                     }
-            setOnClickListener { item?.let { item ->
+            setOnClickListener { item.comment?.let { comment ->
                 progress_bar.visibility = VISIBLE
-                callback.onMoreCommentsTapped(item)
+                callback.onMoreCommentsTapped(comment)
             } }
         }
     }

@@ -7,11 +7,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import com.bumptech.glide.Glide
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.getAgeString
 import com.paulmillerd.redditapp.toMagnitudeString
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.subreddit_item.view.*
 import java.text.NumberFormat
 
@@ -43,7 +43,9 @@ class SubredditViewHolder(itemView: View, val callback: SubredditFragment.Subred
                 val thumbnailUrl = data.thumbnail
                 if (URLUtil.isValidUrl(thumbnailUrl)) {
                     thumbnail.visibility = VISIBLE
-                    Picasso.get().load(thumbnailUrl).into(thumbnail)
+                    Glide.with(context)
+                            .load(thumbnailUrl)
+                            .into(thumbnail)
                 } else {
                     thumbnail.visibility = GONE
                 }

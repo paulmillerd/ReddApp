@@ -6,10 +6,11 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.SubredditsItem
 import com.paulmillerd.redditapp.toMagnitudeString
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.autocomplete_item.view.*
 
 class AutocompleteViewHolder(itemView: View, val callback: AutocompleteVhCallback) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
@@ -28,7 +29,10 @@ class AutocompleteViewHolder(itemView: View, val callback: AutocompleteVhCallbac
                 subreddit_name.text = item.name
                 if (URLUtil.isValidUrl(item.icon)) {
                     subreddit_icon.visibility = VISIBLE
-                    Picasso.get().load(item.icon).into(subreddit_icon)
+                    Glide.with(context)
+                            .load(item.icon)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(subreddit_icon)
                 } else {
                     subreddit_icon.visibility = INVISIBLE
                 }

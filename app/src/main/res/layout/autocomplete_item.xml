@@ -12,6 +12,7 @@
         android:id="@+id/subreddit_icon"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="32dp"
+        tools:src="@tools:sample/avatars"
         android:layout_height="32dp"/>
 
     <TextView
