@@ -47,11 +47,7 @@ class SubredditViewHolder(itemView: View, val callback: SubredditFragment.Subred
                 } else {
                     thumbnail.visibility = GONE
                 }
-                comments.text = String.format(
-                        "%s %s",
-                        NumberFormat.getNumberInstance().format(data.numComments),
-                        context.getString(R.string.comments)
-                )
+                comments.text = NumberFormat.getNumberInstance().format(data.numComments)
                 score.text = data.score?.toMagnitudeString(context)
                 if (!TextUtils.isEmpty(data.linkFlairText)) {
                     flair_badge.visibility = VISIBLE

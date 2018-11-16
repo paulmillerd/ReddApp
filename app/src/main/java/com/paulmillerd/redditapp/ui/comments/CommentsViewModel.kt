@@ -18,24 +18,23 @@ class CommentsViewModel: ViewModel() {
     private val moreCommentsResponse = Transformations.switchMap(_moreCommentsData) {
         commentRepository.getMoreComments(it.linkTypePrefix, it.linkId, it.children)
     }
-    val comments = MediatorLiveData<List<Thing>>()
+    private val _comments = MediatorLiveData<List<Thing>>()
+    val comments: LiveData<List<Thing>> get() = _comments
 
-    fun init(commentRepository: CommentRepository) {
-        this.commentRepository = commentRepository
-
-        comments.addSource(commentsResponse) { response ->
+    init {
+        _comments.addSource(commentsResponse) { response ->
             val commentsList = mutableListOf<Thing>()
             response.forEach { listing ->
                 listing.data?.children?.let {
                     addCommentsToList(it, commentsList)
                 }
             }
-            comments.postValue(commentsList)
+            _comments.postValue(commentsList)
         }
 
-        comments.addSource(moreCommentsResponse) { response ->
+        _comments.addSource(moreCommentsResponse) { response ->
             val parentId = response[0].data?.parent_id
-            val commentsList = comments.value?.toMutableList()
+            val commentsList = _comments.value?.toMutableList()
             val indexToReplace = commentsList?.indexOfFirst {
                 it.data?.parent_id == parentId && it.kind == ThingType.MORE.prefix
             }
@@ -43,8 +42,12 @@ class CommentsViewModel: ViewModel() {
                 commentsList.removeAt(it)
                 commentsList.addAll(it, response)
             }
-            comments.postValue(commentsList)
+            _comments.postValue(commentsList)
         }
+    }
+
+    fun init(commentRepository: CommentRepository) {
+        this.commentRepository = commentRepository
     }
 
     fun setPostData(post: Thing) {
