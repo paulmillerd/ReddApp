@@ -192,6 +192,8 @@
                     app:layout_constraintStart_toEndOf="@id/upvote"
                     android:textSize="16sp"
                     android:paddingEnd="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:paddingStart="8dp"
                     tools:text="54.5k"
                     android:id="@+id/score"
