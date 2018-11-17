@@ -1,5 +1,6 @@
 package com.paulmillerd.redditapp.ui.comments
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -89,6 +91,12 @@ class CommentsFragment : Fragment(), MoreCommentsViewHolder.MoreCommentsVhCallba
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        context?.let { ctx ->
+            progress_bar.indeterminateDrawable.setColorFilter(
+                    ContextCompat.getColor(ctx, R.color.colorPrimary),
+                    PorterDuff.Mode.SRC_ATOP
+            )
+        }
         comments_list.layoutManager = LinearLayoutManager(context)
         comments_list.adapter = adapter
     }

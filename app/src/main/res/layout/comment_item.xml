@@ -97,6 +97,7 @@
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
             app:layout_constraintHorizontal_bias="0"
+            android:textColorLink="@color/colorPrimaryDark"
             android:layout_marginLeft="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

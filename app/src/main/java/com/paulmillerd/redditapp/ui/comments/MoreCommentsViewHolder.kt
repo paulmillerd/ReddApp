@@ -1,10 +1,12 @@
 package com.paulmillerd.redditapp.ui.comments
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import kotlinx.android.synthetic.main.more_comments_item.view.*
@@ -16,6 +18,13 @@ class MoreCommentsViewHolder(itemView: View, val callback: MoreCommentsVhCallbac
                 MoreCommentsViewHolder(LayoutInflater.from(parent.context)
                         .inflate(R.layout.more_comments_item, parent, false),
                         callback)
+    }
+
+    init {
+        itemView.progress_bar.indeterminateDrawable.setColorFilter(
+                ContextCompat.getColor(itemView.context, R.color.colorPrimary),
+                PorterDuff.Mode.SRC_ATOP
+        )
     }
 
     override fun bindView(item: CommentsAdapter.CommentOrSelfText) {
