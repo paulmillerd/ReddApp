@@ -38,4 +38,6 @@ class SubredditViewModel: ViewModel() {
         subreddit.postValue(newSubreddit)
     }
 
+    fun isSubredditSet(): Boolean = subreddit.value != null
+
 }

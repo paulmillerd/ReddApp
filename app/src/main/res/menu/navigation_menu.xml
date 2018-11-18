@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_browse"
+          android:title="@string/browse"
+          android:icon="@drawable/ic_view_list_black_24dp"/>
+    <!--<item android:id="@+id/action_post"-->
+          <!--android:title="@string/post"-->
+          <!--android:icon="@drawable/ic_add_box_black_24dp"/>-->
+    <item android:id="@+id/action_account"
+          android:title="@string/account"
+          android:icon="@drawable/ic_person_black_24dp"/>
+</menu>

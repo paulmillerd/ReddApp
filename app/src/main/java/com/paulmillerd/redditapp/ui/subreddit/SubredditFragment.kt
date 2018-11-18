@@ -63,8 +63,13 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
                 if (aboutResponse == null) toolbar.title = getString(R.string.front_page)
                 else toolbar.title = aboutResponse.data?.displayNamePrefixed
             })
-            viewModel.setSubreddit(arguments?.getString(SUBREDDIT) ?: "")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!viewModel.isSubredditSet())
+            viewModel.setSubreddit(arguments?.getString(SUBREDDIT) ?: "")
     }
 
     override fun setSubreddit(newSubreddit: String) {

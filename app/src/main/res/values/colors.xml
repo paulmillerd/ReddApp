@@ -6,6 +6,7 @@
     <color name="postTitle">#000</color>
     <color name="transparentBlack">#9000</color>
     <color name="lightGrey">#eee</color>
+    <color name="darkGrey">#888</color>
     <color name="rootComment">#ccc</color>
     <color name="depth1Comment">#ddd</color>
     <color name="depth2Comment">#eee</color>

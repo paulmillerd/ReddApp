@@ -1,68 +1,61 @@
 package com.paulmillerd.redditapp.ui
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.SortOrder
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
-import com.paulmillerd.redditapp.hideKeyboard
-import com.paulmillerd.redditapp.ui.comments.CommentsFragment
-import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
-import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment.Companion.SORT_ORDER
-import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment.Companion.SUBREDDIT
-import com.paulmillerd.redditapp.ui.subredditPicker.SubredditPickerFragment
+import com.paulmillerd.redditapp.ui.account.AccountFragment
+import com.paulmillerd.redditapp.ui.browse.BrowseFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),
-        SubredditPickerFragment.SubredditPickerCallback,
-        SubredditFragment.SubredditFragmentCallback {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemReselectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceSubredditFragment("", null, false)
+        replaceMainFragment(BrowseFragment::class.java)
+        bottom_nav_bar.setOnNavigationItemSelectedListener(this)
     }
 
-    override fun onSubredditEntered(subreddit: String) {
-        hideKeyboard(this)
-        onBackPressed()
-        replaceSubredditFragment(subreddit, null, true)
+    override fun onBackPressed() {
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment?.isVisible == true &&
+                    fragment.childFragmentManager.backStackEntryCount > 0) {
+                fragment.childFragmentManager.popBackStack()
+                return
+            }
+        }
+        super.onBackPressed()
     }
 
-    override fun onToolbarTapped() {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean =
+            showSelectedFragment(item.itemId)
+
+    override fun onNavigationItemReselected(item: MenuItem) {
+        showSelectedFragment(item.itemId)
+    }
+
+    private fun showSelectedFragment(menuItemId: Int): Boolean {
+        return when (menuItemId) {
+            R.id.action_browse -> {
+                replaceMainFragment(BrowseFragment::class.java)
+                true
+            }
+            R.id.action_account -> {
+                replaceMainFragment(AccountFragment::class.java)
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun <T: Fragment> replaceMainFragment(fragmentType: Class<T>) {
         supportFragmentManager.beginTransaction()
-                .add(R.id.content_frame, SubredditPickerFragment().also {
-                    it.callback = this
-                })
-                .addToBackStack(null)
+                .replace(R.id.content_frame, fragmentType.newInstance())
                 .commit()
-    }
-
-    override fun onPostTapped(post: Thing) {
-        supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_slide_up, android.R.animator.fade_out,
-                        android.R.animator.fade_out, R.anim.exit_slide_down)
-                .add(R.id.content_frame, CommentsFragment().also { fragment ->
-                    fragment.arguments = Bundle().also { bundle ->
-                        bundle.putSerializable(CommentsFragment.POST_DATA, post)
-                    }
-                })
-                .addToBackStack(null)
-                .commit()
-    }
-
-    private fun replaceSubredditFragment(subreddit: String, sortOrder: SortOrder?, addToBackStack: Boolean) {
-        val transaction = supportFragmentManager.beginTransaction()
-                .replace(R.id.content_frame, SubredditFragment().also { fragment ->
-                    fragment.arguments = Bundle().also { bundle ->
-                        bundle.putString(SUBREDDIT, subreddit)
-                        if (sortOrder != null) bundle.putSerializable(SORT_ORDER, sortOrder)
-                    }
-                    fragment.callback = this
-                })
-        if (addToBackStack) transaction.addToBackStack(null)
-        transaction.commit()
-        content_frame.requestFocus()
     }
 
 }

@@ -26,4 +26,8 @@
     <string name="more_replies_singular">+ 1 more reply</string>
     <string name="dot_with_spaces">&#160;•&#160;</string>
     <string name="dot_with_strings">%s • %s</string>
+    <string name="browse">Browse</string>
+    <string name="post">Post</string>
+    <string name="account">Account</string>
+    <string name="login">Login through Reddit</string>
 </resources>
