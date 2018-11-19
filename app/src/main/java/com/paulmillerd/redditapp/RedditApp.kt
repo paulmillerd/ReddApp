@@ -19,7 +19,7 @@ class RedditApp: Application() {
     override fun onCreate() {
         super.onCreate()
         component = DaggerAppComponent.builder()
-                .redditApiModule(RedditApiModule())
+                .redditApiModule(RedditApiModule(this))
                 .build()
     }
 

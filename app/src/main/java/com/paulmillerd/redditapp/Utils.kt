@@ -5,6 +5,9 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
+import java.util.*
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 enum class ThingType(val prefix: String) {
     COMMENT("t1"),
@@ -69,6 +72,7 @@ fun getQuantityString(age: Long, divisor: Int, @StringRes singularStringRes: Int
     else String.format(context.getString(pluralStringRes), quantity)
 }
 
+// https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
 fun hideKeyboard(activity: Activity) {
     val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     //Find the currently focused view, so we can grab the correct window token from it.
@@ -92,4 +96,15 @@ enum class SortOrder(val pathParam: String) {
     TOP("top"),
     CONTROVERSIAL("controversial"),
     RISING("rising")
+}
+
+fun getSaltString(): String {
+    val saltChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+    val salt = StringBuilder()
+    val rnd = Random()
+    while (salt.length < 18) { // length of the random string.
+        val index = floor(rnd.nextFloat() * saltChars.length).roundToInt()
+        salt.append(saltChars[index])
+    }
+    return salt.toString()
 }

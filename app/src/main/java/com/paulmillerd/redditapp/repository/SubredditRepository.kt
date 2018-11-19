@@ -7,9 +7,9 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.paulmillerd.redditapp.SortOrder
-import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.responseModels.listing.Listing
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.di.RedditServiceProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +17,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SubredditRepository @Inject constructor(private val redditService: RedditService) {
+class SubredditRepository @Inject constructor(private val serviceProvider: RedditServiceProvider) {
 
     fun getListing(subreddit: String?, sortOrder: SortOrder): LiveData<PagedList<Thing>> {
         return LivePagedListBuilder<String, Thing>(object : DataSource.Factory<String, Thing>() {
@@ -43,9 +43,9 @@ class SubredditRepository @Inject constructor(private val redditService: RedditS
                           initCallback: PageKeyedDataSource.LoadInitialCallback<String, Thing>?,
                           callback: PageKeyedDataSource.LoadCallback<String, Thing>?) {
         if (TextUtils.isEmpty(subreddit)) {
-            redditService.getFrontPage(sortOrder.pathParam, afterKey)
+            serviceProvider.redditService.getFrontPage(sortOrder.pathParam, afterKey)
         } else {
-            redditService.getSubreddit(subreddit!!, sortOrder.pathParam, afterKey)
+            serviceProvider.redditService.getSubreddit(subreddit!!, sortOrder.pathParam, afterKey)
         }.enqueue(object : Callback<Listing> {
             override fun onResponse(call: Call<Listing>, response: Response<Listing>) {
                 if (response.isSuccessful && response.body() != null) {

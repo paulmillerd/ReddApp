@@ -2,8 +2,8 @@ package com.paulmillerd.redditapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.paulmillerd.redditapp.api.RedditService
 import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
+import com.paulmillerd.redditapp.di.RedditServiceProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,12 +11,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SubredditAboutRepository @Inject constructor(private val redditService: RedditService) {
+class SubredditAboutRepository @Inject constructor(private val serviceProvider: RedditServiceProvider) {
 
     fun getSubredditAbout(subreddit: String): LiveData<AboutResponse> {
         val data = MutableLiveData<AboutResponse>()
 
-        redditService.getSubredditAbout(subreddit).enqueue(object : Callback<AboutResponse> {
+        serviceProvider.redditService.getSubredditAbout(subreddit).enqueue(object : Callback<AboutResponse> {
             override fun onResponse(call: Call<AboutResponse>, response: Response<AboutResponse>) {
                 if (response.isSuccessful && response.body() != null)
                     data.postValue(response.body())

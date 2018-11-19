@@ -10,3 +10,4 @@
 /captures
 .externalNativeBuild
 /app/release
+/app/src/main/java/com/paulmillerd/redditapp/Secrets.kt

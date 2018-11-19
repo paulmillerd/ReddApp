@@ -1,13 +1,14 @@
 package com.paulmillerd.redditapp.api
 
+import com.paulmillerd.redditapp.api.responseModels.accessToken.RefreshTokenResponse
+import com.paulmillerd.redditapp.api.responseModels.accessToken.RetrieveTokenResponse
+import com.paulmillerd.redditapp.api.responseModels.account.AccountResponse
 import com.paulmillerd.redditapp.api.responseModels.listing.Listing
 import com.paulmillerd.redditapp.api.responseModels.listing.MoreCommentsResponse
 import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
 import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.AutocompleteResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RedditService {
 
@@ -40,5 +41,23 @@ interface RedditService {
     fun getMoreComments(@Query("link_id") linkId: String,
                         @Query("children") children: String):
             Call<MoreCommentsResponse>
+
+    @FormUrlEncoded
+    @POST("api/v1/access_token")
+    fun retrieveAccessToken(@Header("Authorization") authHeader: String,
+                            @Field("grant_type") grantType: String = "authorization_code",
+                            @Field("code") code: String,
+                            @Field("redirect_uri") redirectUrl: String):
+            Call<RetrieveTokenResponse>
+
+    @FormUrlEncoded
+    @POST("api/v1/access_token")
+    fun refreshAccessToken(@Header("Authorization") authHeader: String,
+                           @Field("grant_type") grantType: String = "refresh_token",
+                           @Field("refresh_token") refreshToken: String):
+            Call<RefreshTokenResponse>
+
+    @GET("api/v1/me.json?raw_json=1")
+    fun getAccountInfo(): Call<AccountResponse>
 
 }
