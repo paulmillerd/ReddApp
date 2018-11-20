@@ -11,3 +11,4 @@
 .externalNativeBuild
 /app/release
 /app/src/main/java/com/paulmillerd/redditapp/Secrets.kt
+/app/google-services.json
