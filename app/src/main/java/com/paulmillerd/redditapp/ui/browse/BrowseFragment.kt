@@ -9,7 +9,7 @@ import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.hideKeyboard
-import com.paulmillerd.redditapp.ui.comments.CommentsFragment
+import com.paulmillerd.redditapp.ui.post.PostFragment
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
 import com.paulmillerd.redditapp.ui.subredditPicker.SubredditPickerFragment
 import kotlinx.android.synthetic.main.fragment_browse.*
@@ -45,9 +45,9 @@ class BrowseFragment: Fragment(),
         childFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.enter_slide_up, android.R.animator.fade_out,
                         android.R.animator.fade_out, R.anim.exit_slide_down)
-                .add(R.id.browse_content_frame, CommentsFragment().also { fragment ->
+                .add(R.id.browse_content_frame, PostFragment().also { fragment ->
                     fragment.arguments = Bundle().also { bundle ->
-                        bundle.putSerializable(CommentsFragment.POST_DATA, post)
+                        bundle.putSerializable(PostFragment.POST_DATA, post)
                     }
                 })
                 .addToBackStack(null)

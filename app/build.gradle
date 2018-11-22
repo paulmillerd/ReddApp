@@ -75,5 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.5'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
     implementation 'com.google.firebase:firebase-perf:16.2.0'
+
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

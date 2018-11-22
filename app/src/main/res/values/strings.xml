@@ -35,4 +35,6 @@
     <string name="problem_logging_in">There was a problem logging you in. Please try again.</string>
     <string name="ok">OK</string>
     <string name="logged_in_as">Logged in as:&#160;</string>
+    <string name="link">Link</string>
+    <string name="comments_title_case">Comments</string>
 </resources>
