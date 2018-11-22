@@ -50,7 +50,7 @@
 
 # Gson specific classes
 -dontwarn sun.misc.**
-#-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.internal.** { *; }
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.paulmillerd.redditapp.api.responseModels.** { *; }
