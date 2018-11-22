@@ -1,5 +1,6 @@
 package com.paulmillerd.redditapp.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,7 @@ class LinkFragment: Fragment() {
                 .into(photo_view)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun showWebPage(url: String?) {
         with (web_view) {
             visibility = VISIBLE
@@ -62,6 +64,7 @@ class LinkFragment: Fragment() {
             with (settings) {
                 builtInZoomControls = true
                 displayZoomControls = false
+                javaScriptEnabled = true
             }
             loadUrl(url)
         }
