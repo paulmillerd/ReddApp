@@ -1,6 +1,7 @@
 package com.paulmillerd.redditapp.ui
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,18 +13,23 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.source.dash.DashMediaSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 import com.paulmillerd.redditapp.R
-import kotlinx.android.synthetic.main.fragment_web_view.*
+import kotlinx.android.synthetic.main.fragment_link.*
 
 
 class LinkFragment: Fragment() {
 
     companion object {
         const val URL = "URL"
+        const val DASH_URL_SUFFIX = "/DASHPlaylist.mpd"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_web_view, container, false)
+            inflater.inflate(R.layout.fragment_link, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,10 +38,10 @@ class LinkFragment: Fragment() {
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         if (extension != null) {
             val type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
-            if (type?.startsWith("image/") == true) {
-                showImage(url)
-            } else {
-                showWebPage(url)
+            when {
+                type?.startsWith("image/") == true -> showImage(url)
+                url?.startsWith("https://v.redd.it") == true -> showVideoPlayer(url)
+                else -> showWebPage(url)
             }
         }
     }
@@ -64,6 +70,17 @@ class LinkFragment: Fragment() {
             }
             loadUrl(url)
         }
+    }
+
+    private fun showVideoPlayer(url: String?) {
+        val player = ExoPlayerFactory.newSimpleInstance(context)
+        player_view.player = player
+        player_view.visibility = VISIBLE
+        val dataSourceFactory = DefaultDataSourceFactory(context,
+                Util.getUserAgent(context, context?.getString(R.string.app_name)))
+        val videoSource = DashMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse("$url$DASH_URL_SUFFIX"))
+        player.playWhenReady = true
+        player.prepare(videoSource)
     }
 
 }
