@@ -1,4 +1,4 @@
-# RedditApp
+# r-Slash
 A work-in-progress Android app for browsing Reddit
 
 This project was born out of a desire to improve my software architecture and Android development skills by building a fairly large, complex app. As a regular user of Reddit, I figured an app for browsing the site would be useful and present an interesting development challenge.
