@@ -38,10 +38,6 @@ class LinkFragment: Fragment() {
                 showWebPage(url)
             }
         }
-
-        Glide.with(this)
-                .load(arguments?.getString(URL))
-                .into(photo_view)
     }
 
     private fun showImage(url: String?) {
