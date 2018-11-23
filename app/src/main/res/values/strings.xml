@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">aa4r</string>
+    <string name="app_name">r-Slash</string>
     <string name="authorize_url" translatable="false">https://www.reddit.com/api/v1/authorize.compact?client_id=%s&amp;response_type=code&amp;state=%s&amp;redirect_uri=%s&amp;duration=permanent&amp;scope=creddits,modcontributors,modmail,modconfig,subscribe,structuredstyles,vote,wikiedit,mysubreddits,submit,modlog,modposts,modflair,save,modothers,read,privatemessages,report,identity,livemanage,account,modtraffic,wikiread,edit,modwiki,modself,history,flair</string>
     <string name="comments">comments</string>
     <string name="thousands_formatter">%.1fK</string>
