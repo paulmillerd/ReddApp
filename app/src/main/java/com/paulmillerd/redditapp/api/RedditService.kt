@@ -60,4 +60,8 @@ interface RedditService {
     @GET("api/v1/me.json?raw_json=1")
     fun getAccountInfo(): Call<AccountResponse>
 
+    @FormUrlEncoded
+    @POST("api/vote")
+    fun castVote(@Field("dir") dir: Int, @Field("id") id: String): Call<Void>
+
 }

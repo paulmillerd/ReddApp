@@ -11,4 +11,5 @@
     <color name="depth1Comment">#ddd</color>
     <color name="depth2Comment">#eee</color>
     <color name="depth3Comment">#f8f8f8</color>
+    <color name="textColorDefault">#808080</color>
 </resources>

@@ -71,7 +71,7 @@ data class ThingData(
 	val linkFlairTemplateId: Any? = null,
 
 	@field:SerializedName("likes")
-	val likes: Any? = null,
+	val likes: Boolean? = null,
 
 	@field:SerializedName("banned_at_utc")
 	val bannedAtUtc: Any? = null,

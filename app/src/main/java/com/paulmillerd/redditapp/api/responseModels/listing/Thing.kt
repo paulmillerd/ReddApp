@@ -11,5 +11,9 @@ data class Thing(
 	val data: ThingData? = null,
 
         @field:SerializedName("kind")
-	val kind: String? = null
+	val kind: String? = null,
+
+		var tempLikes: Boolean? = null,
+
+		var tempScore: Int? = null
 ): Serializable

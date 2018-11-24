@@ -11,11 +11,14 @@ import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
 import com.paulmillerd.redditapp.repository.SubredditAboutRepository
 import com.paulmillerd.redditapp.repository.SubredditRepository
+import com.paulmillerd.redditapp.serviceManager.VotingManager
+import com.paulmillerd.redditapp.ui.VoteCallback
 
-class SubredditViewModel: ViewModel() {
+class SubredditViewModel: ViewModel(), VoteCallback {
 
     private lateinit var mSubredditRepository: SubredditRepository
     private lateinit var mAboutRepository: SubredditAboutRepository
+    private lateinit var mVotingManager: VotingManager
     private val subreddit = MutableLiveData<String>()
     val listing: LiveData<PagedList<Thing>> = Transformations.switchMap(subreddit) {
         mSubredditRepository.getListing(it, SortOrder.BEST)
@@ -28,10 +31,15 @@ class SubredditViewModel: ViewModel() {
                 liveData.postValue(null)
             }
     }
+    private val _dataUpdates = MutableLiveData<Boolean>()
+    val dataUpdates: LiveData<Boolean> get() = _dataUpdates
 
-    fun init(subredditRepository: SubredditRepository, aboutRepository: SubredditAboutRepository) {
+    fun init(subredditRepository: SubredditRepository,
+             aboutRepository: SubredditAboutRepository,
+             votingManager: VotingManager) {
         this.mSubredditRepository = subredditRepository
         this.mAboutRepository = aboutRepository
+        this.mVotingManager = votingManager
     }
 
     fun setSubreddit(newSubreddit: String) {
@@ -39,5 +47,39 @@ class SubredditViewModel: ViewModel() {
     }
 
     fun isSubredditSet(): Boolean = subreddit.value != null
+
+    override fun upvoteTapped(thing: Thing) {
+        when (thing.tempLikes) {
+            false, null -> {
+                thing.data?.name?.let {
+                    mVotingManager.upvote(it)
+                }
+                thing.tempLikes = true
+                if (thing.tempScore != null) thing.tempScore = thing.tempScore!! + 1
+            }
+            true -> {
+                thing.data?.name?.let { mVotingManager.resetVote(it) }
+                thing.tempLikes = null
+                if (thing.tempScore != null) thing.tempScore = thing.tempScore!! - 1
+            }
+        }
+        _dataUpdates.postValue(true)
+    }
+
+    override fun downvoteTapped(thing: Thing) {
+        when (thing.tempLikes) {
+            true, null -> {
+                thing.data?.name?.let { mVotingManager.downvote(it) }
+                thing.tempLikes = false
+                if (thing.tempScore != null) thing.tempScore = thing.tempScore!! - 1
+            }
+            false -> {
+                thing.data?.name?.let { mVotingManager.resetVote(it) }
+                thing.tempLikes = null
+                if (thing.tempScore != null) thing.tempScore = thing.tempScore!! + 1
+            }
+        }
+        _dataUpdates.postValue(true)
+    }
 
 }

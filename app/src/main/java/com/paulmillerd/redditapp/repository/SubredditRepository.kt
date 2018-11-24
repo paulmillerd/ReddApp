@@ -53,6 +53,10 @@ class SubredditRepository @Inject constructor(private val serviceProvider: Reddi
                     response.body()?.data?.children?.let { children ->
                         list.addAll(children.asIterable())
                     }
+                    list.forEach {
+                        it?.tempLikes = it?.data?.likes
+                        it?.tempScore = it?.data?.score
+                    }
                     if (initCallback != null) {
                         initCallback.onResult(list, null, response.body()?.data?.after)
                     } else callback?.onResult(list, response.body()?.data?.after)

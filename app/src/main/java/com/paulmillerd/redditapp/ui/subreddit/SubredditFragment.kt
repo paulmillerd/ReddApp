@@ -12,6 +12,7 @@ import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.SubredditAboutRepository
 import com.paulmillerd.redditapp.repository.SubredditRepository
+import com.paulmillerd.redditapp.serviceManager.VotingManager
 import com.paulmillerd.redditapp.ui.SubredditInterface
 import kotlinx.android.synthetic.main.fragment_subreddit.*
 import javax.inject.Inject
@@ -27,6 +28,8 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
     lateinit var mSubredditRepository: SubredditRepository
     @Inject
     lateinit var mAboutRepository: SubredditAboutRepository
+    @Inject
+    lateinit var mVotingManager: VotingManager
 
     private lateinit var viewModel: SubredditViewModel
     private val listingAdapter = SubredditAdapter()
@@ -39,7 +42,7 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list_recycler_view.apply {
-            listingAdapter.callback = callback
+            listingAdapter.fragmentCallback = callback
             adapter = listingAdapter
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         }
@@ -55,7 +58,7 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
             RedditApp.getAppComponent(it).inject(this)
 
             viewModel = ViewModelProviders.of(this).get(SubredditViewModel::class.java)
-            viewModel.init(mSubredditRepository, mAboutRepository)
+            viewModel.init(mSubredditRepository, mAboutRepository, mVotingManager)
             viewModel.listing.observe(this, Observer { children ->
                 populateRecyclerView(children)
             })
@@ -63,6 +66,10 @@ class SubredditFragment: androidx.fragment.app.Fragment(), SubredditInterface {
                 if (aboutResponse == null) toolbar.title = getString(R.string.front_page)
                 else toolbar.title = aboutResponse.data?.displayNamePrefixed
             })
+            viewModel.dataUpdates.observe(this, Observer {
+                listingAdapter.notifyDataSetChanged()
+            })
+            listingAdapter.voteCallback = viewModel
         }
     }
 
