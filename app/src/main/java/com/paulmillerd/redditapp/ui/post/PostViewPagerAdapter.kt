@@ -17,6 +17,13 @@ class PostViewPagerAdapter(fragmentManager: FragmentManager, postData: Thing, co
     private val pageTitles = mutableListOf<String>()
 
     init {
+        fragments.add(CommentsFragment().also { fragment ->
+            fragment.arguments = Bundle().also { bundle ->
+                bundle.putSerializable(CommentsFragment.POST_DATA, postData)
+            }
+            pageTitles.add(context.getString(R.string.comments_title_case))
+        })
+
         if (postData.data?.isSelf == false)  {
             fragments.add(LinkFragment().also { fragment ->
                 fragment.arguments = Bundle().also { bundle ->
@@ -25,13 +32,6 @@ class PostViewPagerAdapter(fragmentManager: FragmentManager, postData: Thing, co
             })
             pageTitles.add(context.getString(R.string.link))
         }
-
-        fragments.add(CommentsFragment().also { fragment ->
-            fragment.arguments = Bundle().also { bundle ->
-                bundle.putSerializable(CommentsFragment.POST_DATA, postData)
-            }
-            pageTitles.add(context.getString(R.string.comments_title_case))
-        })
     }
 
     override fun getPageTitle(position: Int): CharSequence? = pageTitles[position]
