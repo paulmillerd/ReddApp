@@ -1,6 +1,7 @@
 package com.paulmillerd.redditapp.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +13,10 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -49,8 +53,16 @@ class LinkFragment: Fragment() {
     private fun showImage(url: String?) {
         photo_view.visibility = VISIBLE
         Glide.with(this)
+                .asBitmap()
                 .load(url)
-                .into(photo_view)
+                .into(object: BitmapImageViewTarget(photo_view) {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        super.onResourceReady(resource, transition)
+                        Palette.Builder(resource).generate { palette ->
+                            palette?.darkMutedSwatch?.rgb?.let { link_frame.setBackgroundColor(it) }
+                        }
+                    }
+                })
     }
 
     @SuppressLint("SetJavaScriptEnabled")
