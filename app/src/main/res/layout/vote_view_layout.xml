@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/upvote"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/score"
+        app:layout_constraintBottom_toBottomOf="@id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:srcCompat="@drawable/upvote_icon"/>
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/upvote"
+        android:textSize="16sp"
+        tools:text="54.5k"
+        android:id="@+id/score"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/downvote"
+        app:layout_constraintTop_toTopOf="@id/score"
+        app:layout_constraintBottom_toBottomOf="@id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:srcCompat="@drawable/downvote_icon"
+        app:layout_constraintStart_toEndOf="@id/score"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

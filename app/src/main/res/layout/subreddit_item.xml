@@ -177,41 +177,17 @@
                 app:layout_constraintTop_toBottomOf="@id/body"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <ImageView
-                    android:id="@+id/upvote"
+                <com.paulmillerd.redditapp.ui.vote.VoteView
+                    android:id="@+id/vote_view"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/score"
-                    app:layout_constraintBottom_toBottomOf="@id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:padding="8dp"
-                    app:srcCompat="@drawable/upvote_icon"/>
-
-                <TextView
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/upvote"
-                    android:textSize="16sp"
-                    tools:text="54.5k"
-                    android:id="@+id/score"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <ImageView
-                    android:id="@+id/downvote"
-                    app:layout_constraintTop_toTopOf="@id/score"
-                    app:layout_constraintBottom_toBottomOf="@id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:padding="8dp"
-                    app:srcCompat="@drawable/downvote_icon"
-                    app:layout_constraintStart_toEndOf="@id/score"/>
-
-                <ImageView
                     android:id="@+id/comment_icon"
                     android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toEndOf="@id/downvote"
+                    app:layout_constraintStart_toEndOf="@id/vote_view"
                     app:layout_constraintBottom_toBottomOf="@id/comments"
                     app:layout_constraintTop_toTopOf="@id/comments"
                     app:srcCompat="@drawable/ic_comment_black_24dp"
@@ -225,6 +201,8 @@
                 <TextView
                     android:id="@+id/comments"
                     tools:text="5,000"
+                    app:layout_constraintTop_toTopOf="@id/vote_view"
+                    app:layout_constraintBottom_toBottomOf="@id/vote_view"
                     app:layout_constraintStart_toEndOf="@id/comment_icon"
                     app:layout_constraintBaseline_toBaselineOf="@id/score"
                     android:textColor="@color/textColorDefault"

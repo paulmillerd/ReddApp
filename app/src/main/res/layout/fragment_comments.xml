@@ -26,39 +26,11 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:id="@+id/upvote"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/score"
-        app:layout_constraintBottom_toBottomOf="@id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        app:srcCompat="@drawable/upvote_icon"
-        android:layout_marginLeft="8dp"/>
-
-    <TextView
+    <com.paulmillerd.redditapp.ui.vote.VoteView
+        android:id="@+id/vote_view"
         app:layout_constraintTop_toBottomOf="@id/post_title"
-        app:layout_constraintStart_toEndOf="@id/upvote"
-        android:textSize="16sp"
-        android:paddingEnd="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingStart="8dp"
-        tools:text="54.5k"
-        android:layout_marginTop="8dp"
-        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/downvote"
-        app:layout_constraintTop_toTopOf="@id/score"
-        app:layout_constraintBottom_toBottomOf="@id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:srcCompat="@drawable/downvote_icon"
-        app:layout_constraintStart_toEndOf="@id/score"/>
     
     <ImageView
         android:id="@+id/thumbnail"
@@ -76,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="score, thumbnail"/>
+        app:constraint_referenced_ids="vote_view, thumbnail"/>
 
     <View
         android:id="@+id/header_line"

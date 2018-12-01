@@ -19,7 +19,6 @@ import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.CommentRepository
-import com.paulmillerd.redditapp.toMagnitudeString
 import kotlinx.android.synthetic.main.fragment_comments.*
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
@@ -48,7 +47,7 @@ class CommentsFragment : Fragment(), MoreCommentsViewHolder.MoreCommentsVhCallba
             viewModel.setPostData(arguments?.getSerializable(POST_DATA) as Thing)
             viewModel.post.observe(this, Observer { post ->
                 post_title.text = post?.data?.title
-                score.text = post?.data?.score?.toMagnitudeString(ctx)
+                vote_view.setThing(post)
                 if (URLUtil.isValidUrl(post?.data?.thumbnail)) {
                     thumbnail.visibility = VISIBLE
                     context?.let { ctx ->

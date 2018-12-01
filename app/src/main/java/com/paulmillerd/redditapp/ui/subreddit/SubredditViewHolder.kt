@@ -7,13 +7,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.URLUtil
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.getAgeString
-import com.paulmillerd.redditapp.toMagnitudeString
 import com.paulmillerd.redditapp.ui.VoteCallback
 import kotlinx.android.synthetic.main.subreddit_item.view.*
 import java.text.NumberFormat
@@ -74,32 +72,8 @@ class SubredditViewHolder(
                 setOnClickListener {
                     fragmentCallback?.onPostTapped(childrenItem)
                 }
-            }
 
-            score.text = childrenItem?.tempScore?.toMagnitudeString(context)
-
-            score.setTextColor(ContextCompat.getColor(context,
-                    when (childrenItem?.tempLikes) {
-                        null -> R.color.textColorDefault
-                        true -> R.color.colorAccent
-                        false -> R.color.colorPrimary
-                    }))
-
-            upvote.setColorFilter(ContextCompat.getColor(context,
-                    when (childrenItem?.tempLikes) {
-                        null, false -> R.color.textColorDefault
-                        true -> R.color.colorAccent
-                    }))
-
-            downvote.setColorFilter(ContextCompat.getColor(context,
-                    when (childrenItem?.tempLikes) {
-                        null, true -> R.color.textColorDefault
-                        false -> R.color.colorPrimary
-                    }))
-
-            childrenItem?.let { item ->
-                upvote.setOnClickListener { voteCallback?.upvoteTapped(item) }
-                downvote.setOnClickListener { voteCallback?.downvoteTapped(item) }
+                vote_view.setThing(childrenItem)
             }
         }
     }

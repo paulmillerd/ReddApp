@@ -6,6 +6,7 @@ import com.paulmillerd.redditapp.ui.comments.CommentsFragment
 import com.paulmillerd.redditapp.ui.login.LoginActivity
 import com.paulmillerd.redditapp.ui.subreddit.SubredditFragment
 import com.paulmillerd.redditapp.ui.subredditPicker.SubredditPickerFragment
+import com.paulmillerd.redditapp.ui.vote.VoteView
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,4 +18,5 @@ interface AppComponent {
     fun inject(commentsFragment: CommentsFragment)
     fun inject(loginActivity: LoginActivity)
     fun inject(accountFragment: AccountFragment)
+    fun inject(voteView: VoteView)
 }
