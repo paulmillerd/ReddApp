@@ -3,7 +3,7 @@ package com.paulmillerd.redditapp.ui.comments
 import androidx.lifecycle.*
 import com.paulmillerd.redditapp.SortOrder
 import com.paulmillerd.redditapp.ThingType
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.CommentRepository
 
 class CommentsViewModel: ViewModel() {

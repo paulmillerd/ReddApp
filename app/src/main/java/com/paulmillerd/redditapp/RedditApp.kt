@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.paulmillerd.redditapp.di.AppComponent
 import com.paulmillerd.redditapp.di.DaggerAppComponent
+import com.paulmillerd.redditapp.di.module.ExoPlayerModule
 import com.paulmillerd.redditapp.di.module.RedditApiModule
 
 class RedditApp: Application() {
@@ -20,6 +21,7 @@ class RedditApp: Application() {
         super.onCreate()
         component = DaggerAppComponent.builder()
                 .redditApiModule(RedditApiModule(this))
+                .exoPlayerModule(ExoPlayerModule(this))
                 .build()
     }
 

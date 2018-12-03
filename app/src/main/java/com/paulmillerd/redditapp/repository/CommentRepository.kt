@@ -3,10 +3,10 @@ package com.paulmillerd.redditapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.paulmillerd.redditapp.SortOrder
-import com.paulmillerd.redditapp.api.responseModels.listing.Listing
-import com.paulmillerd.redditapp.api.responseModels.listing.MoreCommentsResponse
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.di.RedditServiceProvider
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Listing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.MoreCommentsResponse
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -4,11 +4,11 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.paulmillerd.redditapp.LOGIN_DEEP_LINK
-import com.paulmillerd.redditapp.api.RedditService
-import com.paulmillerd.redditapp.api.getBasicAuthHeader
-import com.paulmillerd.redditapp.api.responseModels.accessToken.RetrieveTokenResponse
-import com.paulmillerd.redditapp.api.saveAccessToken
-import com.paulmillerd.redditapp.api.saveRefreshToken
+import com.paulmillerd.redditapp.redditApi.RedditService
+import com.paulmillerd.redditapp.redditApi.getBasicAuthHeader
+import com.paulmillerd.redditapp.redditApi.responseModels.accessToken.RetrieveTokenResponse
+import com.paulmillerd.redditapp.redditApi.saveAccessToken
+import com.paulmillerd.redditapp.redditApi.saveRefreshToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

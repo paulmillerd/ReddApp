@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.paulmillerd.redditapp.ThingType
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 
 class CommentsAdapter(val callback: MoreCommentsViewHolder.MoreCommentsVhCallback):
         ListAdapter<CommentsAdapter.CommentOrSelfText, CommentListViewHolder>(CommentDiffer()) {

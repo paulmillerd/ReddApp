@@ -10,8 +10,8 @@ import android.webkit.URLUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
 import com.paulmillerd.redditapp.getAgeString
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import com.paulmillerd.redditapp.ui.VoteCallback
 import kotlinx.android.synthetic.main.subreddit_item.view.*
 import java.text.NumberFormat

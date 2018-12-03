@@ -1,6 +1,6 @@
 package com.paulmillerd.redditapp.ui
 
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 
 interface VoteCallback {
     fun upvoteTapped(thing: Thing)

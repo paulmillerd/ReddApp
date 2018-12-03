@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
-import com.paulmillerd.redditapp.api.getAccessToken
 import com.paulmillerd.redditapp.getSaltString
+import com.paulmillerd.redditapp.redditApi.getAccessToken
 import com.paulmillerd.redditapp.repository.AccountRepository
 import com.paulmillerd.redditapp.ui.login.AuthenticateWebViewActivity
 import kotlinx.android.synthetic.main.fragment_account.*

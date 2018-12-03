@@ -7,8 +7,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.paulmillerd.redditapp.SortOrder
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
-import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.subredditAbout.AboutResponse
 import com.paulmillerd.redditapp.repository.SubredditAboutRepository
 import com.paulmillerd.redditapp.repository.SubredditRepository
 import com.paulmillerd.redditapp.serviceManager.VotingManager

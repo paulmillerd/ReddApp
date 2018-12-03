@@ -2,7 +2,6 @@ package com.paulmillerd.redditapp.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,15 +16,18 @@ import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.exoplayer2.ExoPlayerFactory
-import com.google.android.exoplayer2.source.dash.DashMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.paulmillerd.redditapp.R
+import com.paulmillerd.redditapp.RedditApp
+import com.paulmillerd.redditapp.exoPlayer.CachingDashExoPlayerFactory
 import kotlinx.android.synthetic.main.fragment_link.*
+import javax.inject.Inject
 
 
 class LinkFragment: Fragment() {
+
+    @Inject
+    lateinit var simpleCache: SimpleCache
 
     companion object {
         const val URL = "URL"
@@ -35,8 +37,9 @@ class LinkFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_link, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        context?.let { RedditApp.getAppComponent(it).inject(this) }
 
         val url = arguments?.getString(URL)
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
@@ -85,14 +88,8 @@ class LinkFragment: Fragment() {
     }
 
     private fun showVideoPlayer(url: String?) {
-        val player = ExoPlayerFactory.newSimpleInstance(context)
-        player_view.player = player
+        player_view.player = CachingDashExoPlayerFactory.newInstance(context, "$url$DASH_URL_SUFFIX", simpleCache)
         player_view.visibility = VISIBLE
-        val dataSourceFactory = DefaultDataSourceFactory(context,
-                Util.getUserAgent(context, context?.getString(R.string.app_name)))
-        val videoSource = DashMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse("$url$DASH_URL_SUFFIX"))
-        player.playWhenReady = true
-        player.prepare(videoSource)
     }
 
 }

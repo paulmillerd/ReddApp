@@ -8,7 +8,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import kotlinx.android.synthetic.main.more_comments_item.view.*
 
 class MoreCommentsViewHolder(itemView: View, val callback: MoreCommentsVhCallback) : CommentListViewHolder(itemView) {

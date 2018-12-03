@@ -9,7 +9,7 @@ import android.webkit.URLUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.paulmillerd.redditapp.R
-import com.paulmillerd.redditapp.api.responseModels.subredditAutocomplete.SubredditsItem
+import com.paulmillerd.redditapp.redditApi.responseModels.subredditAutocomplete.SubredditsItem
 import com.paulmillerd.redditapp.toMagnitudeString
 import kotlinx.android.synthetic.main.autocomplete_item.view.*
 

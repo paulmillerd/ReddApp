@@ -3,7 +3,7 @@ package com.paulmillerd.redditapp.ui.subreddit
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import com.paulmillerd.redditapp.ui.VoteCallback
 
 class SubredditAdapter: PagedListAdapter<Thing, SubredditViewHolder>(ChildrenDiffer()) {

@@ -2,8 +2,8 @@ package com.paulmillerd.redditapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.paulmillerd.redditapp.api.responseModels.subredditAbout.AboutResponse
 import com.paulmillerd.redditapp.di.RedditServiceProvider
+import com.paulmillerd.redditapp.redditApi.responseModels.subredditAbout.AboutResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.SubredditAboutRepository
 import com.paulmillerd.redditapp.repository.SubredditRepository
 import com.paulmillerd.redditapp.serviceManager.VotingManager

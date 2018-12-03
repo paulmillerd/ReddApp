@@ -3,7 +3,7 @@ package com.paulmillerd.redditapp.di.module
 import android.app.Application
 import com.paulmillerd.redditapp.BASE_REDDIT_URL
 import com.paulmillerd.redditapp.OAUTH_BASE_REDDIT_URL
-import com.paulmillerd.redditapp.api.*
+import com.paulmillerd.redditapp.redditApi.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

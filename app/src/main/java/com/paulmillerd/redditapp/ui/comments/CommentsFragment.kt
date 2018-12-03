@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.paulmillerd.redditapp.R
 import com.paulmillerd.redditapp.RedditApp
-import com.paulmillerd.redditapp.api.responseModels.listing.Thing
+import com.paulmillerd.redditapp.redditApi.responseModels.listing.Thing
 import com.paulmillerd.redditapp.repository.CommentRepository
 import kotlinx.android.synthetic.main.fragment_comments.*
 import ru.noties.markwon.Markwon

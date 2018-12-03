@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import com.paulmillerd.redditapp.ACCESS_TOKEN
 import com.paulmillerd.redditapp.ACCESS_TOKEN_FILE
-import com.paulmillerd.redditapp.api.RedditService
+import com.paulmillerd.redditapp.redditApi.RedditService
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
