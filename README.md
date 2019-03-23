@@ -2,8 +2,6 @@
 
 A work-in-progress Android app for browsing Reddit
 
-Get the beta on [Google Play](https://play.google.com/store/apps/details?id=com.paulmillerd.redditapp).
-
 ## Why build a Reddit app?
 
 This project was born out of a desire to improve my software architecture and Android development skills by building a fairly large, complex app. As a regular user of Reddit, I figured an app for browsing the site would be useful and present an interesting development challenge.
