@@ -26,6 +26,7 @@ fun isAccessTokenExpired(application: Application): Boolean {
     application.getSharedPreferences(ACCESS_TOKEN_FILE, Context.MODE_PRIVATE)?.apply {
         return (System.currentTimeMillis() / 1000) >= getLong(ACCESS_TOKEN_EXPIRY_TIME, 0)
     }
+    return false
 }
 
 fun getBasicAuthHeader(): String = Credentials.basic(REDDIT_CLIENT_ID, "")

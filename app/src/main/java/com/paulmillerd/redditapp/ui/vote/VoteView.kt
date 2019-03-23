@@ -60,12 +60,12 @@ class VoteView @JvmOverloads constructor(
     private fun onDownvoteClicked() {
         when (thing?.tempLikes) {
             true, null -> {
-                thing?.data?.name?.let { votingManager?.downvote(it) }
+                thing?.data?.name?.let { votingManager.downvote(it) }
                 thing?.tempLikes = false
                 if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! - 1
             }
             false -> {
-                thing?.data?.name?.let { votingManager?.resetVote(it) }
+                thing?.data?.name?.let { votingManager.resetVote(it) }
                 thing?.tempLikes = null
                 if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! + 1
             }
@@ -76,12 +76,12 @@ class VoteView @JvmOverloads constructor(
     private fun onUpvoteClicked() {
         when (thing?.tempLikes) {
             false, null -> {
-                thing?.data?.name?.let { votingManager?.upvote(it) }
+                thing?.data?.name?.let { votingManager.upvote(it) }
                 thing?.tempLikes = true
                 if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! + 1
             }
             true -> {
-                thing?.data?.name?.let { votingManager?.resetVote(it) }
+                thing?.data?.name?.let { votingManager.resetVote(it) }
                 thing?.tempLikes = null
                 if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! - 1
             }

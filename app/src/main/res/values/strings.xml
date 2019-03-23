@@ -37,4 +37,5 @@
     <string name="logged_in_as">Logged in as:&#160;</string>
     <string name="link">Link</string>
     <string name="comments_title_case">Comments</string>
+    <string name="nav_bar_search_label_text">Search …</string>
 </resources>

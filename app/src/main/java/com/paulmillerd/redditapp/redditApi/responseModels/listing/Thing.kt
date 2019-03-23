@@ -1,9 +1,11 @@
 package com.paulmillerd.redditapp.redditApi.responseModels.listing
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import javax.annotation.Generated
 
+@Entity
 @Generated("com.robohorse.robopojogenerator")
 data class Thing(
 
