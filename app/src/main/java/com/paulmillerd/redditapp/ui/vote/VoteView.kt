@@ -61,13 +61,16 @@ class VoteView @JvmOverloads constructor(
         when (thing?.tempLikes) {
             true, null -> {
                 thing?.data?.name?.let { votingManager.downvote(it) }
+                val pointsToSubtract = if (thing?.tempLikes == true) 2 else 1
+                if (thing?.tempScore != null)
+                    thing?.tempScore = thing?.tempScore!! - pointsToSubtract
                 thing?.tempLikes = false
-                if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! - 1
             }
             false -> {
                 thing?.data?.name?.let { votingManager.resetVote(it) }
                 thing?.tempLikes = null
-                if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! + 1
+                if (thing?.tempScore != null)
+                    thing?.tempScore = thing?.tempScore!! + 1
             }
         }
         refreshView()
@@ -77,13 +80,16 @@ class VoteView @JvmOverloads constructor(
         when (thing?.tempLikes) {
             false, null -> {
                 thing?.data?.name?.let { votingManager.upvote(it) }
+                val pointsToAdd = if (thing?.tempLikes == false) 2 else 1
+                if (thing?.tempScore != null)
+                    thing?.tempScore = thing?.tempScore!! + pointsToAdd
                 thing?.tempLikes = true
-                if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! + 1
             }
             true -> {
                 thing?.data?.name?.let { votingManager.resetVote(it) }
                 thing?.tempLikes = null
-                if (thing?.tempScore != null) thing?.tempScore = thing?.tempScore!! - 1
+                if (thing?.tempScore != null)
+                    thing?.tempScore = thing?.tempScore!! - 1
             }
         }
         refreshView()
